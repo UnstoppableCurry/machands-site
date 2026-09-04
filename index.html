@@ -2,82 +2,422 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>MacHands — Path-preserving external disk relocation</title>
+<title>MacHands — Path-preserving external disk relocation for Mac</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Native macOS menu-bar utility that relocates Safe-tier data to your external SSD while keeping original paths working. Pro $18/month or $128/year USD.">
+<meta name="description" content="MacHands (外盘智管) is a native macOS utility that relocates data to your external disk while keeping original paths working. Developer ID notarized. $49 one-time.">
 <meta property="og:title" content="MacHands — Path-preserving external disk relocation">
-<meta property="og:description" content="Native macOS menu-bar utility that relocates Safe-tier data to your external SSD while keeping original paths working. Pro $18/month or $128/year USD.">
-<meta property="og:url" content="https://unstoppablecurry.github.io/machands-site/">
+<meta property="og:description" content="Native macOS utility. Relocate data to your external SSD without breaking paths. Notarized. $49 one-time.">
+<meta property="og:url" content="https://machands.pages.dev/">
 <meta property="og:type" content="website">
+<!-- DOWNLOAD_URL = ""  Fill with GitHub Release DMG URL when live. -->
 <style>
-body{font:16px/1.6 -apple-system,system-ui,sans-serif;max-width:760px;margin:48px auto;padding:0 24px;color:#1c1c1e}
-h1{font-size:34px;margin:0 0 4px}
-h2{margin-top:32px;font-size:18px}
-h3{font-size:16px;margin-top:24px}
-a{color:#007aff}
-.tagline{font-size:18px;color:#3a3a3c}
-.features{margin:24px 0;padding-left:20px}
-.features li{margin-bottom:8px}
-.price{font-weight:600}
-.plans{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 8px}
-.plan{flex:1;min-width:220px;border:1px solid #e5e5e7;border-radius:12px;padding:16px 18px}
-.plan h2{margin:0 0 8px;font-size:16px}
-.amt{font-size:28px;font-weight:700;letter-spacing:-0.03em}
-.nav{margin:32px 0 0;padding:16px 0;border-top:1px solid #e5e5e7}
-.muted{color:#6e6e73;font-size:14px}
-.legal p,.legal li{max-width:760px}
-.legal ul{padding-left:20px}
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --border: #d2d2d7;
+  --accent: #007aff;
+  --accent-hover: #0066d6;
+  --green: #34c759;
+  --radius: 16px;
+  --shadow: 0 2px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* Nav */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(245,245,247,.85);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.topnav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px; max-width: 980px; margin: 0 auto; padding: 0 24px;
+}
+.logo { font-weight: 700; font-size: 17px; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
+.logo:hover { text-decoration: none; opacity: .8; }
+.logo span { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 8px; }
+.topnav-links { display: flex; gap: 20px; align-items: center; font-size: 14px; }
+.topnav-links a { color: var(--muted); text-decoration: none; }
+.topnav-links a:hover { color: var(--text); text-decoration: none; }
+.btn-nav {
+  background: var(--accent); color: #fff !important; padding: 6px 14px;
+  border-radius: 980px; font-weight: 500; font-size: 13px;
+}
+.btn-nav:hover { background: var(--accent-hover); text-decoration: none !important; }
+
+/* Hero */
+.hero {
+  padding: 72px 0 56px;
+  text-align: center;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 980px; padding: 6px 14px; margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.hero h1 {
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 700; letter-spacing: -0.035em; line-height: 1.12;
+  margin-bottom: 12px;
+}
+.hero .zh {
+  font-size: clamp(18px, 3vw, 22px);
+  color: var(--muted); font-weight: 500; margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+.hero .lead {
+  font-size: clamp(18px, 2.4vw, 21px);
+  color: var(--muted); max-width: 560px; margin: 0 auto 32px;
+  line-height: 1.45;
+}
+.cta-row {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 16px;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 16px; font-weight: 560; padding: 12px 24px;
+  border-radius: 980px; border: none; cursor: pointer;
+  text-decoration: none; transition: background .15s, opacity .15s, transform .1s;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); color: #fff; }
+.btn-secondary {
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.btn-secondary:hover { background: #fafafa; color: var(--text); }
+.btn-disabled, .btn[aria-disabled="true"] {
+  background: #c7c7cc; color: #fff; cursor: not-allowed; pointer-events: none;
+}
+.btn-ghost {
+  background: transparent; color: var(--accent); border: 1px solid transparent;
+  padding: 10px 16px; font-size: 15px;
+}
+.btn-ghost:hover { text-decoration: underline; }
+.hero-meta { font-size: 13px; color: var(--muted); }
+
+/* Sections */
+section { padding: 56px 0; }
+.section-title {
+  font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
+  text-align: center; margin-bottom: 8px;
+}
+.section-sub {
+  text-align: center; color: var(--muted); margin-bottom: 36px;
+  font-size: 16px; max-width: 520px; margin-left: auto; margin-right: auto;
+}
+
+/* Cards grid */
+.cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+@media (max-width: 720px) {
+  .cards { grid-template-columns: 1fr; }
+  .topnav-links .hide-sm { display: none; }
+}
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+}
+.card .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: #e8f1ff; color: var(--accent); font-weight: 700; font-size: 14px;
+  margin-bottom: 14px;
+}
+.card h3 { font-size: 17px; font-weight: 650; margin-bottom: 8px; letter-spacing: -0.01em; }
+.card p { font-size: 15px; color: var(--muted); line-height: 1.5; }
+
+/* Trust */
+.trust-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px;
+}
+@media (max-width: 720px) { .trust-grid { grid-template-columns: 1fr; } }
+.trust-list { list-style: none; }
+.trust-list li {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid #eee; font-size: 15px;
+}
+.trust-list li:last-child { border-bottom: none; }
+.trust-list .icon {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+  background: #e8f8ed; color: #248a3d; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 700; margin-top: 1px;
+}
+.trust-list .icon.no { background: #f5f5f7; color: var(--muted); }
+.trust-list strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
+.trust-list span { color: var(--muted); font-size: 14px; }
+
+/* Pricing */
+.pricing-wrap { display: flex; justify-content: center; }
+.price-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 36px 40px; max-width: 400px; width: 100%;
+  box-shadow: var(--shadow); text-align: center;
+}
+.price-card .label {
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px;
+}
+.price-card .amt {
+  font-size: 48px; font-weight: 700; letter-spacing: -0.04em; line-height: 1;
+  margin-bottom: 4px;
+}
+.price-card .amt span { font-size: 18px; font-weight: 500; color: var(--muted); }
+.price-card .once { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+.price-card ul {
+  list-style: none; text-align: left; margin: 0 0 28px; font-size: 15px;
+}
+.price-card ul li {
+  padding: 8px 0 8px 28px; position: relative; color: var(--text);
+  border-bottom: 1px solid #f0f0f2;
+}
+.price-card ul li:last-child { border-bottom: none; }
+.price-card ul li::before {
+  content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700;
+}
+.price-note { font-size: 13px; color: var(--muted); margin-top: 16px; line-height: 1.4; }
+
+/* Download section */
+#download .dl-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px 32px; text-align: center;
+  box-shadow: var(--shadow); max-width: 560px; margin: 0 auto;
+}
+#download .dl-box h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.02em; }
+#download .dl-box p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+
+/* FAQ */
+.faq { max-width: 640px; margin: 0 auto; }
+.faq details {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 10px; padding: 16px 20px;
+  box-shadow: var(--shadow);
+}
+.faq summary {
+  font-weight: 600; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 15px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 20px; }
+.faq details[open] summary::after { content: "−"; }
+.faq details p {
+  margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.55;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border); padding: 40px 0 48px; margin-top: 24px;
+  background: var(--surface);
+}
+.footer-inner {
+  display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;
+  align-items: flex-start; font-size: 14px;
+}
+.footer-brand { font-weight: 650; margin-bottom: 6px; }
+.footer-muted { color: var(--muted); line-height: 1.5; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+.footer-links a { color: var(--muted); }
+.footer-links a:hover { color: var(--text); }
 </style>
 </head>
 <body>
 
-<h1>MacHands</h1>
-<p class="tagline">Keep a small internal SSD usable by relocating data to your external volume — without breaking original paths.</p>
-<p>Also known as <strong>外盘智管</strong>. Native macOS menu-bar utility. Chinese-primary UI, English secondary.</p>
-
-<ul class="features">
-<li>Watch free space on the internal drive. When it drops below your threshold, plan a relocation.</li>
-<li>You choose what moves. Safe-tier items include old downloads, Xcode DerivedData / DeviceSupport, package and browser caches.</li>
-<li>Copy to your designated external SSD, verify size, then leave a <strong>symlink</strong> (folders) or <strong>stub portal</strong> (apps) at the original path so workflows keep working.</li>
-<li>If the external volume is unplugged, automatic relocation pauses and already-moved apps tell you to reconnect — they do not crash.</li>
-<li>Dry-run first. One-click restore brings data back and removes the link.</li>
-<li>This is a <strong>path-preserving storage relocation</strong> tool. It is not a junk cleaner, optimizer, antivirus, or “speed up your Mac” utility.</li>
-</ul>
-
-<h2 id="pricing">Pricing</h2>
-<div class="plans">
-  <div class="plan">
-    <h2>Free</h2>
-    <p class="amt">$0</p>
-    <p>Manual scan. Up to two successful relocations. Dry-run always available.</p>
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="logo" href="index.html">MacHands<span>外盘智管</span></a>
+    <nav class="topnav-links">
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="hide-sm" href="#trust">Trust</a>
+      <a class="hide-sm" href="#pricing">Pricing</a>
+      <a class="hide-sm" href="#faq">FAQ</a>
+      <a class="btn-nav" href="#download">Download</a>
+    </nav>
   </div>
-  <div class="plan">
-    <h2>Pro Monthly</h2>
-    <p class="amt">$18 <span class="muted">USD / month</span></p>
-    <p>Automatic relocation, optional on-device planner with your own API key (stored in Keychain), unlimited moves.</p>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="badge"><span class="dot" aria-hidden="true"></span> Developer ID notarized · macOS 14+</div>
+    <h1>Keep your Mac’s paths.<br>Free space with your external disk.</h1>
+    <p class="zh">外盘智管 — 路径不丢的外盘空间管理</p>
+    <p class="lead">MacHands relocates Safe-tier data to your external SSD and leaves symlinks at the original paths — so apps and workflows keep working.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#download">Download</a>
+      <a class="btn btn-secondary" href="#how">Learn more</a>
+    </div>
+    <p class="hero-meta">Native macOS utility · Not a junk cleaner · $49 one-time when checkout opens</p>
+  </section>
+
+  <section id="how" class="wrap">
+    <h2 class="section-title">How it works</h2>
+    <p class="section-sub">Three clear steps. You stay in control of every move.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Choose your external volume</h3>
+        <p>Pick the SSD once. MacHands remembers it by volume UUID and watches free space on your internal drive.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>Review Safe-tier candidates</h3>
+        <p>Old downloads, Xcode DerivedData / DeviceSupport, caches — you decide what moves. Dry-run first, always.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>Relocate with paths intact</h3>
+        <p>Data is copied, verified, then replaced with a symlink or stub portal. Original paths keep working. One-click restore when you need it back.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" class="wrap">
+    <h2 class="section-title">Built for trust</h2>
+    <p class="section-sub">Plain permissions. No dark patterns. Notarized for Gatekeeper.</p>
+    <div class="trust-grid">
+      <div class="card">
+        <ul class="trust-list">
+          <li>
+            <span class="icon" aria-hidden="true">✓</span>
+            <div><strong>Developer ID notarized</strong><span>Signed and notarized by Apple. Gatekeeper can verify the build.</span></div>
+          </li>
+          <li>
+            <span class="icon" aria-hidden="true">✓</span>
+            <div><strong>You approve every relocation</strong><span>Nothing moves without your selection. Dry-run before commit.</span></div>
+          </li>
+          <li>
+            <span class="icon" aria-hidden="true">✓</span>
+            <div><strong>No account required to try</strong><span>When download is live, install and evaluate without signing up.</span></div>
+          </li>
+          <li>
+            <span class="icon" aria-hidden="true">✓</span>
+            <div><strong>Open legal pages</strong><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:14px;font-size:17px;">What we never do</h3>
+        <ul class="trust-list">
+          <li>
+            <span class="icon no" aria-hidden="true">—</span>
+            <div><strong>Not a junk cleaner</strong><span>No “speed up your Mac” hype. Path-preserving relocation only.</span></div>
+          </li>
+          <li>
+            <span class="icon no" aria-hidden="true">—</span>
+            <div><strong>No silent deletes</strong><span>We copy, verify, then link — not wipe without a trail.</span></div>
+          </li>
+          <li>
+            <span class="icon no" aria-hidden="true">—</span>
+            <div><strong>No password exfiltration</strong><span>Full Disk Access (optional) is for scanning locations you choose — not reading Mail or Messages.</span></div>
+          </li>
+          <li>
+            <span class="icon no" aria-hidden="true">—</span>
+            <div><strong>Unplug-safe</strong><span>If the external volume is gone, automatic moves pause; already-moved apps ask you to reconnect.</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="wrap">
+    <h2 class="section-title">Simple pricing</h2>
+    <p class="section-sub">One license. No subscription treadmill.</p>
+    <div class="pricing-wrap">
+      <div class="price-card">
+        <div class="label">MacHands License</div>
+        <div class="amt">$49 <span>USD</span></div>
+        <p class="once">One-time purchase</p>
+        <ul>
+          <li>Full path-preserving relocation</li>
+          <li>Dry-run, verify, and one-click restore</li>
+          <li>macOS 14+ · Apple Silicon recommended</li>
+          <li>Also submitting to Mac App Store</li>
+        </ul>
+        <a class="btn btn-primary" href="#pricing" style="width:100%;">Checkout opening soon</a>
+        <p class="price-note">Lemon Squeezy checkout is not live yet. 30-day money-back once sales begin — see <a href="refund.html">Refunds</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="download" class="wrap">
+    <h2 class="section-title">Download</h2>
+    <p class="section-sub">Notarized Developer ID build — public link goes live with the Release.</p>
+    <div class="dl-box">
+      <h3>Coming soon</h3>
+      <p>A notarized build already exists on the developer Mac. The GitHub Release DMG URL will be wired here when published.<br>
+      <!-- When ready: set DOWNLOAD_URL and point the primary button below to that URL. -->
+      Placeholder release page: <a href="https://github.com/UnstoppableCurry/machands-site/releases/latest">releases/latest</a></p>
+      <div class="cta-row">
+        <span class="btn btn-disabled" aria-disabled="true" title="DMG URL not published yet">Download — Coming soon</span>
+        <a class="btn btn-secondary" href="mailto:wangtianxin666@icloud.com?subject=MacHands%20download%20notify">Get notified</a>
+      </div>
+      <p class="hero-meta" style="margin-top:20px;">Requirements: macOS 14+ · External SSD recommended · Optional Full Disk Access for protected locations</p>
+    </div>
+  </section>
+
+  <section id="faq" class="wrap">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-sub">Short answers to common questions.</p>
+    <div class="faq">
+      <details>
+        <summary>Is this a junk cleaner?</summary>
+        <p>No. MacHands is a path-preserving storage relocation tool. It moves data you choose to an external volume and leaves links at the original paths. It is not an optimizer, antivirus, or “speed up your Mac” utility.</p>
+      </details>
+      <details>
+        <summary>What happens if I unplug the external disk?</summary>
+        <p>Automatic relocation pauses. Already-moved items that need the volume will prompt you to reconnect — they should not crash the app that opens them.</p>
+      </details>
+      <details>
+        <summary>Do I need Full Disk Access?</summary>
+        <p>Only if you want scans of protected locations. You can use MacHands with narrower access; grant FDA only when you are comfortable.</p>
+      </details>
+      <details>
+        <summary>Will it be on the Mac App Store?</summary>
+        <p>We are also submitting to the Mac App Store. Direct download (Developer ID notarized) is the first path; App Store availability will be announced when approved.</p>
+      </details>
+      <details>
+        <summary>How do I get support?</summary>
+        <p>Email <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>. Seller: Tianxin Wang.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-brand">MacHands · 外盘智管</div>
+      <p class="footer-muted">Tianxin Wang · Support: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a><br>
+      Native macOS · Developer ID notarized · macOS 14+</p>
+    </div>
+    <nav class="footer-links">
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund.html">Refunds</a>
+    </nav>
   </div>
-  <div class="plan">
-    <h2>Pro Yearly</h2>
-    <p class="amt">$128 <span class="muted">USD / year</span></p>
-    <p>Same Pro features, billed annually.</p>
-  </div>
-</div>
-<p class="muted">Direct sales. Checkout via Paddle (Merchant of Record) or PayPal when enabled. 30-day money-back — see <a href="refund.html">Refunds</a>.</p>
-
-<h2>Requirements</h2>
-<p>macOS 14+ · Apple Silicon recommended · Full Disk Access only if you want scans of protected locations · You pick the external volume once (remembered by volume UUID).</p>
-
-<h2>Seller</h2>
-<p>Tianxin Wang, individual / sole trader, operating as MacHands. Bundle ID <code>com.macdisk.ai</code>. Contact <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>.</p>
-
-<p class="nav">
-<a href="index.html">Home</a> ·
-<a href="index.html#pricing">Pricing</a> ·
-<a href="terms.html">Terms</a> ·
-<a href="privacy.html">Privacy</a> ·
-<a href="refund.html">Refunds</a>
-</p>
-<p class="muted">MacHands · 外盘智管 · Tianxin Wang · Support: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
+</footer>
 
 </body>
 </html>

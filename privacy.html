@@ -4,39 +4,33 @@
 <meta charset="utf-8">
 <title>Privacy Policy — MacHands</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Privacy Policy for MacHands (also known as 外盘智管).">
+<meta name="description" content="Privacy Policy for MacHands / 外盘智管.">
 <meta property="og:title" content="Privacy Policy — MacHands">
-<meta property="og:description" content="Privacy Policy for MacHands (also known as 外盘智管).">
-<meta property="og:url" content="https://unstoppablecurry.github.io/machands-site/">
+<meta property="og:description" content="Privacy Policy for MacHands / 外盘智管.">
+<meta property="og:url" content="https://machands.pages.dev/privacy.html">
 <meta property="og:type" content="website">
 <style>
-body{font:16px/1.6 -apple-system,system-ui,sans-serif;max-width:760px;margin:48px auto;padding:0 24px;color:#1c1c1e}
-h1{font-size:34px;margin:0 0 4px}
-h2{margin-top:32px;font-size:18px}
-h3{font-size:16px;margin-top:24px}
+body{font:16px/1.6 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;max-width:720px;margin:48px auto;padding:0 24px;color:#1d1d1f;background:#f5f5f7}
+h1{font-size:32px;letter-spacing:-0.03em;margin:0 0 8px}
+h2{margin-top:28px;font-size:18px;letter-spacing:-0.02em}
 a{color:#007aff}
-.tagline{font-size:18px;color:#3a3a3c}
-.features{margin:24px 0;padding-left:20px}
-.features li{margin-bottom:8px}
-.price{font-weight:600}
-.plans{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0 8px}
-.plan{flex:1;min-width:220px;border:1px solid #e5e5e7;border-radius:12px;padding:16px 18px}
-.plan h2{margin:0 0 8px;font-size:16px}
-.amt{font-size:28px;font-weight:700;letter-spacing:-0.03em}
-.nav{margin:32px 0 0;padding:16px 0;border-top:1px solid #e5e5e7}
 .muted{color:#6e6e73;font-size:14px}
-.legal p,.legal li{max-width:760px}
+.legal{background:#fff;border:1px solid #d2d2d7;border-radius:16px;padding:32px 28px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .legal ul{padding-left:20px}
+.legal li{margin-bottom:6px}
+.nav{margin:32px 0 0;padding:16px 0;font-size:14px}
+.nav a{margin-right:12px;color:#6e6e73}
+.nav a:hover{color:#1d1d1f}
 </style>
 </head>
 <body>
 
 <div class="legal">
 <h1>Privacy Policy</h1>
-<p class="muted">Last updated: 2026-09-04 · Controller / seller: Tianxin Wang (individual), MacHands</p>
+<p class="muted">Last updated: 2026-09-04 · Controller / seller: Tianxin Wang (individual), MacHands / 外盘智管</p>
 
 <h2>1. Scope</h2>
-<p>This policy describes how the macOS app <strong>MacHands</strong> (also known as 外盘智管; bundle ID <code>com.macdisk.ai</code>) handles information when you install and use it, and how the seller handles information if you purchase a subscription or email support.</p>
+<p>This policy describes how the macOS app <strong>MacHands</strong> (外盘智管) handles information when you install and use it, and how the seller handles information if you purchase a license or email support.</p>
 
 <h2>2. Data processed on your Mac (local)</h2>
 <p>Most processing happens on your device:</p>
@@ -45,7 +39,7 @@ a{color:#007aff}
 <li>Expansion volume identity (volume UUID) — to remember your chosen external disk.</li>
 <li>Move / journal / audit logs — for copy → verify → replace and restore. Local store and journal on the expansion volume.</li>
 <li>Optional planner API key — macOS Keychain only, when you save it.</li>
-<li>Subscription entitlement state — StoreKit or the payment provider’s license signal.</li>
+<li>License entitlement state — from the payment provider’s license signal when you purchase.</li>
 </ul>
 <p>Full Disk Access, if granted, is used to scan reclaimable user data you choose to manage — not to exfiltrate passwords. The app does not read Mail or Messages content.</p>
 
@@ -53,11 +47,11 @@ a{color:#007aff}
 <ul>
 <li><strong>Default / offline:</strong> Heuristic planning can run without sending file contents to us.</li>
 <li><strong>Optional AI planner:</strong> If you enable it and provide an API key, plan requests go from your Mac to that provider under their privacy terms.</li>
-<li><strong>Purchases:</strong> Apple, Paddle, PayPal, or another processor receives payment data under their privacy policy. We may receive your email, order ID, and subscription status to deliver support and entitlements.</li>
+<li><strong>Purchases:</strong> When checkout is enabled (planned via Lemon Squeezy), the payment processor receives payment data under their privacy policy. We may receive your email, order ID, and license status to deliver support and entitlements. Mac App Store purchases follow Apple’s privacy terms.</li>
 </ul>
 
 <h2>4. What the seller collects</h2>
-<p>If you email support or complete a purchase outside the App Store, we may receive the email address and message you send, plus order / subscription metadata from the payment provider (not full card numbers). We do not sell personal data.</p>
+<p>If you email support or complete a purchase outside the App Store, we may receive the email address and message you send, plus order / license metadata from the payment provider (not full card numbers). We do not sell personal data.</p>
 
 <h2>5. Retention</h2>
 <p>Local app data remains on your devices until you delete the app or clear its support files / Keychain entry. Support emails are kept as long as needed to resolve your request. Payment providers retain transaction records per their policies and law.</p>
@@ -67,7 +61,7 @@ a{color:#007aff}
 <li>Do not grant Full Disk Access if you do not want broad scanning.</li>
 <li>Leave Dry-run enabled until you are ready to move data.</li>
 <li>Do not save an API key if you do not want third-party planner calls.</li>
-<li>Manage or cancel subscriptions through the channel you used (Paddle, PayPal, or Apple).</li>
+<li>Manage licenses or refunds through the channel you used (direct checkout or Apple).</li>
 </ul>
 
 <h2>7. Children</h2>
@@ -75,14 +69,14 @@ a{color:#007aff}
 
 <h2>8. Changes and contact</h2>
 <p>Questions: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>.</p>
-<p>Seller: Tianxin Wang · MacHands · China (individual)</p>
+<p>Seller: Tianxin Wang · MacHands / 外盘智管 · China (individual)</p>
 </div>
 
 <p class="nav">
-<a href="index.html">Home</a> ·
-<a href="index.html#pricing">Pricing</a> ·
-<a href="terms.html">Terms</a> ·
-<a href="privacy.html">Privacy</a> ·
+<a href="index.html">Home</a>
+<a href="index.html#pricing">Pricing</a>
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
 <a href="refund.html">Refunds</a>
 </p>
 <p class="muted">MacHands · 外盘智管 · Tianxin Wang · Support: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
