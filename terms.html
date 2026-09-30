@@ -1,77 +1,137 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-title-zh="条款 — MacHands" data-title-en="Terms — MacHands">
 <head>
 <meta charset="utf-8">
-<title>使用条款 — MacHands</title>
+<script>
+(function () {
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    var s = null;
+    try { s = localStorage.getItem("machands-lang"); } catch (e) {}
+    var l = "zh-CN";
+    if (q === "en" || (!q && s === "en")) l = "en";
+    if (q === "zh" || q === "zh-CN") l = "zh-CN";
+    document.documentElement.lang = l;
+    var t = document.documentElement.getAttribute(l === "en" ? "data-title-en" : "data-title-zh");
+    if (t) document.title = t;
+  } catch (e) {}
+})();
+</script>
+<title>条款 — MacHands</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="MacHands 使用条款。免费 MIT 开源 Mac 代理桥。">
-<meta property="og:title" content="使用条款 — MacHands">
-<meta property="og:description" content="Terms for the free, MIT-licensed MacHands agent bridge.">
+<meta name="description" content="Terms for MacHands, a free MIT open-source Mac agent bridge.">
+<meta property="og:title" content="Terms — MacHands">
+<meta property="og:description" content="Terms for the free MIT MacHands agent bridge.">
 <meta property="og:url" content="https://machands.pages.dev/terms.html">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://machands.pages.dev/terms.html">
 <style>
-body{font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",system-ui,sans-serif;max-width:720px;margin:48px auto;padding:0 24px;color:#1d1d1f;background:#f5f5f7}
-h1{font-size:32px;letter-spacing:-0.03em;margin:0 0 8px}
-h2{margin-top:28px;font-size:18px;letter-spacing:-0.02em}
-a{color:#007aff}
-.muted{color:#6e6e73;font-size:14px}
-.legal{background:#fff;border:1px solid #d2d2d7;border-radius:16px;padding:32px 28px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.legal ul{padding-left:20px}
-.legal li{margin-bottom:6px}
-.nav{margin:32px 0 0;padding:16px 0;font-size:14px}
-.nav a{margin-right:12px;color:#6e6e73}
-.nav a:hover{color:#1d1d1f}
+:root { --bg:#f5f5f7; --surface:#fff; --text:#1d1d1f; --muted:#6e6e73; --border:#d2d2d7; --accent:#007aff; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",system-ui,sans-serif; color:var(--text); background:var(--bg); }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+html:not([lang="en"]) .lang-en { display:none !important; }
+html[lang="en"] .lang-zh { display:none !important; }
+.topnav { position:sticky; top:0; z-index:50; background:rgba(245,245,247,.85); backdrop-filter:saturate(180%) blur(16px); border-bottom:1px solid rgba(0,0,0,.06); }
+.topnav-inner { display:flex; align-items:center; justify-content:space-between; height:52px; max-width:720px; margin:0 auto; padding:0 24px; }
+.logo { font-weight:700; font-size:17px; color:var(--text); text-decoration:none; }
+.logo span { color:var(--muted); font-weight:500; font-size:13px; margin-left:8px; }
+.topnav-links { display:flex; gap:14px; align-items:center; font-size:14px; }
+.topnav-links a { color:var(--muted); text-decoration:none; }
+.lang-switch { display:inline-flex; border:1px solid var(--border); border-radius:980px; overflow:hidden; background:var(--surface); }
+.lang-switch button { appearance:none; border:0; background:transparent; color:var(--muted); font:inherit; font-size:12px; font-weight:600; padding:4px 9px; cursor:pointer; }
+.lang-switch button[aria-pressed="true"] { background:#1d1d1f; color:#fff; }
+.wrap { max-width:720px; margin:32px auto 56px; padding:0 24px; }
+.legal { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:32px 28px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+h1 { font-size:32px; letter-spacing:-0.03em; margin:0 0 8px; }
+h2 { margin-top:28px; font-size:18px; letter-spacing:-0.02em; }
+.muted { color:var(--muted); font-size:14px; }
+.legal ul { padding-left:20px; margin:8px 0; }
+.legal li { margin-bottom:6px; }
+.legal p { margin:8px 0; }
+footer { max-width:720px; margin:0 auto; padding:0 24px 48px; font-size:14px; color:var(--muted); }
+footer a { margin-right:12px; color:var(--muted); }
 </style>
 </head>
 <body>
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="logo" href="index.html">MacHands<span class="lang-zh">MIT · 开源免费</span><span class="lang-en">MIT · Free</span></a>
+    <nav class="topnav-links">
+      <a href="index.html"><span class="lang-zh">首页</span><span class="lang-en">Home</span></a>
+      <span class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="zh-CN" aria-pressed="true">中</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </span>
+      <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
+    </nav>
+  </div>
+</header>
 
+<div class="wrap">
 <div class="legal">
-<h1>使用条款</h1>
-<p class="muted">最近更新：2026-09-30 · 维护者：Tianxin Wang（个人）· MacHands</p>
-<p class="muted">Terms of Use · Last updated: 2026-09-30. MacHands is free and open source under the MIT License. It is not sold.</p>
-
-<h2>1. 协议 / Agreement</h2>
-<p>你下载、安装或使用 MacHands（「本软件」）即表示理解这些条款。不同意请不要使用。</p>
-<p>本软件是 Tianxin Wang 以 MacHands 品牌发布的<strong>免费、MIT 开源</strong>桌面与命令行软件：菜单栏 App、CLI/MCP，以及可选的中继。它<strong>不是</strong>路径保留的外置磁盘迁移工具。本软件与 Apple Inc. 无隶属关系。「Mac」和「macOS」是 Apple Inc. 的商标。</p>
-
-<h2>2. 本软件做什么</h2>
-<p>MacHands 让你把云端 AI 代理接到自己的 Mac 上：在你授权的范围内执行命令、传文件、截屏、键鼠等。默认需要你同意；你可以选开发者（全放行，仍受危险命令黑名单约束）、只读、或逐条审批。你可以随时暂停或撤销配对。</p>
-<p>你自己负责：选哪些权限、备份重要数据、以及云端 agent 用这双手做什么。磁盘操作和任意命令都有风险。</p>
-
-<h2>3. 许可 / License</h2>
-<ul>
-<li>源码以 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a> 提供。完整条款以仓库中的 LICENSE 为准。</li>
-<li>没有付费版本，没有 App Store 内购，没有一次性标价，也没有结账。</li>
-<li>MIT 允许你使用、复制、修改、分发，但软件按「原样」提供，且须保留版权与许可声明。</li>
-<li>MacHands 的名称与标识仍由维护者持有；开源许可不等于转让商标。</li>
-</ul>
-
-<h2>4. 没有付款</h2>
-<p>本站与本软件不出售许可证。不存在支付处理商条款，也不存在因付款产生的订单。应用构建若发布，会放在 <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a> 的 Releases，而不是商店。</p>
-
-<h2>5. 可接受使用</h2>
-<p>你同意不利用本软件违法或侵害他人权利；不把它说成 Apple、Anthropic、OpenAI 或 xAI 的官方产品；不绕过你自己设置的审批与黑名单去伤害这台 Mac 上的他人数据（若这台机器不是只属于你）。</p>
-
-<h2>6. 免责声明</h2>
-<p>在法律允许的最大范围内，本软件按「原样」提供，Tianxin Wang 不提供适销性、特定用途适用性或不侵权的保证。让代理在你的 Mac 上执行命令有固有风险；请保留备份，并只授权你信任的 agent。</p>
-
-<h2>7. 责任限制</h2>
-<p>在法律允许的最大范围内，因本软件或本条款引起的全部责任不超过你为本软件实际支付的金额（目前为零），法律禁止限制的责任除外。我们不对间接、附带、特殊或后果性损害（包括数据损失）负责，法律不允许排除的除外。</p>
-
-<h2>8. 变更与联系</h2>
-<p>条款更新时会改「最近更新」日期。联系：<a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a> · 源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
-<p>Tianxin Wang · MacHands · 中国（个人）</p>
+  <div class="lang-zh">
+    <h1>条款</h1>
+    <p class="muted">最近更新：2026-09-30 · 维护者：Tianxin Wang</p>
+    <h2>1. 协议</h2>
+    <p>你下载、安装或使用 MacHands（「本软件」）即表示理解这些条款。不同意请不要使用。</p>
+    <p>本软件是 Tianxin Wang 以 MacHands 品牌发布的<strong>免费 MIT 开源</strong>代理桥：菜单栏 App、CLI/MCP，以及可自建的中继。它<strong>不是</strong>磁盘工具，不是 DataDance，也不是 MacDisk。与 Apple Inc. 无隶属关系。「Mac」和「macOS」是 Apple Inc. 的商标。</p>
+    <h2>2. 本软件做什么</h2>
+    <p>MacHands 让云端 AI 代理在你授权的范围内使用你自己的 Mac：执行命令、传文件、截屏、键鼠等。你可以选开发者、只读、或逐条审批，也可以随时暂停或撤销配对。</p>
+    <p>你负责选择权限、备份数据，以及代理用这双手做什么。任意命令都有风险。中继请自建，见 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>。</p>
+    <h2>3. 许可</h2>
+    <ul>
+      <li>源码以 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a> 提供，以仓库中的 LICENSE 为准。</li>
+      <li>没有付费服务。</li>
+      <li>MIT 允许使用、复制、修改、分发，软件按「原样」提供，且须保留版权与许可声明。</li>
+      <li>MacHands 名称与标识仍由维护者持有。</li>
+    </ul>
+    <h2>4. 没有付费服务</h2>
+    <p>本站与本软件不出售任何东西。<a href="https://github.com/UnstoppableCurry/MacHands/releases/tag/v0.3.1">v0.3.1</a> 是源码发布，没有已签名的 App 附件。请从 <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a> 取源码。</p>
+    <h2>5. 可接受使用</h2>
+    <p>你同意不利用本软件违法或侵害他人权利；不把它说成 Apple、Anthropic、OpenAI 或 xAI 的官方产品。</p>
+    <h2>6. 免责声明与责任限制</h2>
+    <p>在法律允许的范围内，本软件按「原样」提供，不提供适销性、特定用途适用性或不侵权的保证。让代理在你的 Mac 上执行命令有固有风险。法律不允许排除的责任除外，维护者不对间接或后果性损害（包括数据损失）负责。</p>
+    <h2>7. 联系</h2>
+    <p><a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a> · <a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
+  </div>
+  <div class="lang-en">
+    <h1>Terms</h1>
+    <p class="muted">Last updated: 2026-09-30 · Maintainer: Tianxin Wang</p>
+    <h2>1. Agreement</h2>
+    <p>By downloading, installing, or using MacHands (“the Software”), you understand these terms. If you do not agree, do not use it.</p>
+    <p>The Software is a <strong>free MIT open-source</strong> agent bridge published by Tianxin Wang: a menu-bar app, CLI/MCP, and a relay you self-host. It is <strong>not</strong> a disk tool, not DataDance, and not MacDisk. It is not affiliated with Apple Inc. “Mac” and “macOS” are trademarks of Apple Inc.</p>
+    <h2>2. What the Software does</h2>
+    <p>MacHands lets a cloud AI agent use your Mac within the scope you grant: commands, files, screenshots, keyboard and mouse, and similar actions. You can choose developer, read-only, or ask-every-time, and you can pause or revoke pairing at any time.</p>
+    <p>You choose permissions, keep backups, and own what the agent does with those hands. Arbitrary commands are risky. Self-host the relay; see <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>.</p>
+    <h2>3. License</h2>
+    <ul>
+      <li>Source is offered under the <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a>. The LICENSE file in the repo controls.</li>
+      <li>There is no paid service.</li>
+      <li>MIT allows use, copy, modify, and distribute. The Software is provided “as is,” and you must keep the copyright and license notice.</li>
+      <li>The MacHands name and marks stay with the maintainer.</li>
+    </ul>
+    <h2>4. No paid service</h2>
+    <p>This site and the Software do not sell anything. <a href="https://github.com/UnstoppableCurry/MacHands/releases/tag/v0.3.1">v0.3.1</a> is a source release with no signed app attached. Get the source from <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>.</p>
+    <h2>5. Acceptable use</h2>
+    <p>You agree not to use the Software to break the law or harm others’ rights, and not to present it as an official Apple, Anthropic, OpenAI, or xAI product.</p>
+    <h2>6. Disclaimer and limit</h2>
+    <p>To the extent the law allows, the Software is provided “as is,” without warranties of merchantability, fitness for a particular purpose, or non-infringement. Letting an agent run commands on your Mac is inherently risky. Except where liability cannot be limited, the maintainer is not liable for indirect or consequential damages, including data loss.</p>
+    <h2>7. Contact</h2>
+    <p><a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a> · <a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
+  </div>
+</div>
 </div>
 
-<p class="nav">
-<a href="index.html">首页</a>
-<a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
-<a href="terms.html">条款</a>
-<a href="privacy.html">隐私</a>
-<a href="refund.html">开源说明</a>
-</p>
-<p class="muted">MacHands · MIT · <a href="https://machands.pages.dev/">machands.pages.dev</a> · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
-
+<footer>
+  <a href="index.html"><span class="lang-zh">首页</span><span class="lang-en">Home</span></a>
+  <a href="terms.html"><span class="lang-zh">条款</span><span class="lang-en">Terms</span></a>
+  <a href="privacy.html"><span class="lang-zh">隐私</span><span class="lang-en">Privacy</span></a>
+  <a href="refund.html"><span class="lang-zh">开源说明</span><span class="lang-en">Nothing to buy</span></a>
+  <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
+  <p class="muted" style="margin-top:12px;"><a href="https://machands.pages.dev/">machands.pages.dev</a></p>
+</footer>
+<script src="site.js"></script>
 </body>
 </html>
