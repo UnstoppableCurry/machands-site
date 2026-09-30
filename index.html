@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-title-zh="MacHands — 给云端 AI 代理一双 Mac 上的手" data-title-en="MacHands — Give a cloud AI agent hands on your Mac">
+<html lang="en" data-title-zh="MacHands — 给云端 AI 代理一双 Mac 上的手" data-title-en="MacHands — Give a cloud AI agent hands on your Mac">
 <head>
 <meta charset="utf-8">
 <script>
@@ -8,16 +8,17 @@
     var q = new URLSearchParams(location.search).get("lang");
     var s = null;
     try { s = localStorage.getItem("machands-lang"); } catch (e) {}
-    var l = "zh-CN";
-    if (q === "en" || (!q && s === "en")) l = "en";
+    var l = "en";
+    if (!q && (s === "zh" || s === "zh-CN")) l = "zh-CN";
     if (q === "zh" || q === "zh-CN") l = "zh-CN";
+    if (q === "en") l = "en";
     document.documentElement.lang = l;
     var t = document.documentElement.getAttribute(l === "en" ? "data-title-en" : "data-title-zh");
     if (t) document.title = t;
   } catch (e) {}
 })();
 </script>
-<title>MacHands — 给云端 AI 代理一双 Mac 上的手</title>
+<title>MacHands — Give a cloud AI agent hands on your Mac</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="MacHands is a free MIT open-source agent bridge: menu-bar app + CLI/MCP. 免费开源的 Mac 代理桥。">
 <meta property="og:title" content="MacHands — Give a cloud AI agent hands on your Mac">
@@ -258,8 +259,8 @@ footer {
       <a class="hide-sm" href="#open-source"><span class="lang-zh">开源</span><span class="lang-en">Source</span></a>
       <a class="hide-sm" href="#faq">FAQ</a>
       <span class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-set-lang="zh-CN" aria-pressed="true">中</button>
-        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-set-lang="zh-CN" aria-pressed="false">中</button>
+        <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
       </span>
       <a class="btn-nav" href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
     </nav>
