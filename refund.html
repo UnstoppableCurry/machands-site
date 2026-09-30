@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-title-zh="开源说明 — MacHands" data-title-en="Nothing to buy — MacHands">
+<html lang="en" data-title-zh="开源说明 — MacHands" data-title-en="Nothing to buy — MacHands">
 <head>
 <meta charset="utf-8">
 <script>
@@ -8,16 +8,17 @@
     var q = new URLSearchParams(location.search).get("lang");
     var s = null;
     try { s = localStorage.getItem("machands-lang"); } catch (e) {}
-    var l = "zh-CN";
-    if (q === "en" || (!q && s === "en")) l = "en";
+    var l = "en";
+    if (!q && (s === "zh" || s === "zh-CN")) l = "zh-CN";
     if (q === "zh" || q === "zh-CN") l = "zh-CN";
+    if (q === "en") l = "en";
     document.documentElement.lang = l;
     var t = document.documentElement.getAttribute(l === "en" ? "data-title-en" : "data-title-zh");
     if (t) document.title = t;
   } catch (e) {}
 })();
 </script>
-<title>开源说明 — MacHands</title>
+<title>Nothing to buy — MacHands</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="MacHands is free MIT open source. There is nothing to buy.">
 <meta property="og:title" content="Nothing to buy — MacHands">
@@ -59,8 +60,8 @@ footer a { margin-right:12px; color:var(--muted); }
     <nav class="topnav-links">
       <a href="index.html"><span class="lang-zh">首页</span><span class="lang-en">Home</span></a>
       <span class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-set-lang="zh-CN" aria-pressed="true">中</button>
-        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-set-lang="zh-CN" aria-pressed="false">中</button>
+        <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
       </span>
       <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
     </nav>

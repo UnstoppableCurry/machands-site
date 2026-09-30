@@ -33,9 +33,10 @@
     try { q = new URLSearchParams(location.search).get("lang"); } catch (e) {}
     var saved = null;
     try { saved = localStorage.getItem(KEY); } catch (e) {}
-    var l = "zh-CN";
-    if (q === "en" || (!q && saved === "en")) l = "en";
+    var l = "en";
+    if (!q && (saved === "zh" || saved === "zh-CN")) l = "zh-CN";
     if (q === "zh" || q === "zh-CN") l = "zh-CN";
+    if (q === "en") l = "en";
     apply(l);
   }
 
