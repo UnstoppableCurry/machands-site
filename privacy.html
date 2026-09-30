@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>Privacy Policy — MacHands</title>
+<title>隐私政策 — MacHands</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Privacy Policy for MacHands / 外盘智管.">
-<meta property="og:title" content="Privacy Policy — MacHands">
-<meta property="og:description" content="Privacy Policy for MacHands / 外盘智管.">
+<meta name="description" content="MacHands 隐私政策。免费 MIT 开源 Mac 代理桥。">
+<meta property="og:title" content="隐私政策 — MacHands">
+<meta property="og:description" content="Privacy policy for the free, MIT-licensed MacHands agent bridge.">
 <meta property="og:url" content="https://machands.pages.dev/privacy.html">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://machands.pages.dev/privacy.html">
 <style>
-body{font:16px/1.6 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;max-width:720px;margin:48px auto;padding:0 24px;color:#1d1d1f;background:#f5f5f7}
+body{font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",system-ui,sans-serif;max-width:720px;margin:48px auto;padding:0 24px;color:#1d1d1f;background:#f5f5f7}
 h1{font-size:32px;letter-spacing:-0.03em;margin:0 0 8px}
 h2{margin-top:28px;font-size:18px;letter-spacing:-0.02em}
 a{color:#007aff}
@@ -26,60 +27,61 @@ a{color:#007aff}
 <body>
 
 <div class="legal">
-<h1>Privacy Policy</h1>
-<p class="muted">Last updated: 2026-09-04 · Controller / seller: Tianxin Wang (individual), MacHands (MacDisk AI / 外盘智管)</p>
+<h1>隐私政策</h1>
+<p class="muted">最近更新：2026-09-30 · 维护者：Tianxin Wang（个人）· MacHands（MIT 开源 Mac 代理桥）</p>
+<p class="muted">Privacy Policy · Last updated: 2026-09-30. MacHands is a free, MIT-licensed menu-bar app + CLI/MCP. It is not a paid disk utility.</p>
 
-<h2>1. Scope</h2>
-<p>This policy describes how the macOS app <strong>MacHands</strong> (also MacDisk AI / 外盘智管) handles information when you install and use it, and how the seller handles information if you purchase a license or email support.</p>
+<h2>1. 范围 / Scope</h2>
+<p>本政策说明你安装、使用 <strong>MacHands</strong>（给云端 AI 代理一双 Mac 上的手）时，软件与维护者如何处理信息。软件不收费，没有结账，因此我们不会为付款而收集支付信息。</p>
+<p>This policy covers the macOS menu-bar app, the <code>machands</code> CLI/MCP, and optional self-hosted or default relay traffic. There is no store, in-app purchase, or paid license.</p>
 
-<h2>2. Data processed on your Mac (local)</h2>
-<p>Most processing happens on your device:</p>
+<h2>2. 在你 Mac 上本地处理的数据</h2>
+<p>大部分处理发生在本机：</p>
 <ul>
-<li>Paths and metadata of folders/files you scan or select — to build relocation candidates. Stored in local app support files.</li>
-<li>Expansion volume identity (volume UUID) — to remember your chosen external disk.</li>
-<li>Move / journal / audit logs — for copy → verify → replace and restore. Local store and journal on the expansion volume.</li>
-<li>Optional planner API key — macOS Keychain only, when you save it.</li>
-<li>License entitlement state — from the payment provider’s license signal when you purchase.</li>
+<li>本机身份密钥与配对状态 — 存在 Keychain / 本地应用支持目录，用于和已授权的 agent 通信。</li>
+<li>审批范围、黑名单、暂停状态 — 本地设置。</li>
+<li>审计日志 — <code>~/Library/Logs/MacHands/audit.log</code>，记录命令摘要与你的决定。</li>
+<li>作业输出等运行时文件 — 在本机应用支持目录，由你删除应用或清空文件时消失。</li>
 </ul>
-<p>Full Disk Access, if granted, is used to scan reclaimable user data you choose to manage — not to exfiltrate passwords. The app does not read Mail or Messages content.</p>
+<p>通知、屏幕录制、辅助功能只在你授权后，用于对应能力（提醒、截屏/录屏、键鼠）。不授权也能用其余功能。软件不会去读 Mail 或 Messages 的内容。</p>
 
-<h2>3. Network</h2>
+<h2>3. 网络</h2>
 <ul>
-<li><strong>Default / offline:</strong> Heuristic planning can run without sending file contents to us.</li>
-<li><strong>Optional AI planner:</strong> If you enable it and provide an API key, plan requests go from your Mac to that provider under their privacy terms.</li>
-<li><strong>Purchases:</strong> <strong>Mac App Store IAP is the primary paid path</strong> and follows Apple’s privacy terms. A direct $49 one-time checkout is a backup when a working processor is enabled; that processor then receives payment data under their privacy policy. We may receive your email, order ID, and license status to deliver support and entitlements.</li>
-</ul>
-
-<h2>4. What the seller collects</h2>
-<p>If you email support or complete a purchase outside the App Store, we may receive the email address and message you send, plus order / license metadata from the payment provider (not full card numbers). We do not sell personal data.</p>
-
-<h2>5. Retention</h2>
-<p>Local app data remains on your devices until you delete the app or clear its support files / Keychain entry. Support emails are kept as long as needed to resolve your request. Payment providers retain transaction records per their policies and law.</p>
-
-<h2>6. Your choices</h2>
-<ul>
-<li>Do not grant Full Disk Access if you do not want broad scanning.</li>
-<li>Leave Dry-run enabled until you are ready to move data.</li>
-<li>Do not save an API key if you do not want third-party planner calls.</li>
-<li>Manage licenses or refunds through the channel you used (direct checkout or Apple).</li>
+<li><strong>配对与中继：</strong>agent 与 Mac 之间的内容用端到端加密（X25519 + ChaCha20-Poly1305）传输。中继只转发密文，看不见命令正文。</li>
+<li><strong>配对码：</strong>短时、一次性。过期或用过后失效。</li>
+<li><strong>CLI / MCP：</strong>跑在 agent 所在机器上（例如你的云端环境）。它保存的身份文件在那台机器的用户目录里，不经过本站。</li>
+<li><strong>没有付款通道：</strong>没有支付服务商、没有订单邮箱、没有许可证服务器要你的卡号。</li>
 </ul>
 
-<h2>7. Children</h2>
-<p>The Software is not directed at children under 13 (or the minimum age in your jurisdiction).</p>
+<h2>4. 维护者可能收到什么</h2>
+<p>如果你发邮件到支持地址，我们会收到你写下的邮箱和正文，用来回复问题。我们不出售个人数据。源码与 issue 在 GitHub 上按 GitHub 的条款处理。</p>
 
-<h2>8. Changes and contact</h2>
-<p>Questions: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>.</p>
-<p>Seller: Tianxin Wang · MacHands (MacDisk AI / 外盘智管) · China (individual)</p>
+<h2>5. 保留</h2>
+<p>本机数据留在你的设备上，直到你删除应用或清掉其支持文件 / Keychain 条目。支持邮件只为处理你的请求而保留。</p>
+
+<h2>6. 你的选择</h2>
+<ul>
+<li>可以不授予通知、屏幕录制或辅助功能；对应能力不可用，其余仍可用。</li>
+<li>可随时暂停、撤销某个 agent 的配对，或关掉软件。</li>
+<li>可以自建中继，不使用默认中继。</li>
+</ul>
+
+<h2>7. 儿童</h2>
+<p>本软件不面向 13 岁以下（或你所在地最低年龄）的儿童。</p>
+
+<h2>8. 变更与联系</h2>
+<p>问题：<a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a> · 源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
+<p>Tianxin Wang · MacHands · 中国（个人）</p>
 </div>
 
 <p class="nav">
-<a href="index.html">Home</a>
-<a href="index.html#pricing">Pricing</a>
-<a href="terms.html">Terms</a>
-<a href="privacy.html">Privacy</a>
-<a href="refund.html">Refunds</a>
+<a href="index.html">首页</a>
+<a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
+<a href="terms.html">条款</a>
+<a href="privacy.html">隐私</a>
+<a href="refund.html">开源说明</a>
 </p>
-<p class="muted">MacHands · MacDisk AI · 外盘智管 · Tianxin Wang · Support: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
+<p class="muted">MacHands · MIT · <a href="https://machands.pages.dev/">machands.pages.dev</a> · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
 
 </body>
 </html>
