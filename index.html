@@ -1,12 +1,27 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-title-zh="MacHands — 给云端 AI 代理一双 Mac 上的手" data-title-en="MacHands — Give a cloud AI agent hands on your Mac">
 <head>
 <meta charset="utf-8">
+<script>
+(function () {
+  try {
+    var q = new URLSearchParams(location.search).get("lang");
+    var s = null;
+    try { s = localStorage.getItem("machands-lang"); } catch (e) {}
+    var l = "zh-CN";
+    if (q === "en" || (!q && s === "en")) l = "en";
+    if (q === "zh" || q === "zh-CN") l = "zh-CN";
+    document.documentElement.lang = l;
+    var t = document.documentElement.getAttribute(l === "en" ? "data-title-en" : "data-title-zh");
+    if (t) document.title = t;
+  } catch (e) {}
+})();
+</script>
 <title>MacHands — 给云端 AI 代理一双 Mac 上的手</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="MacHands 是免费的 MIT 开源 Mac 代理桥：菜单栏 App + CLI/MCP，让云端 AI 用你自己的 Mac 干活，每一下都经你同意。">
-<meta property="og:title" content="MacHands — 给云端 AI 代理一双 Mac 上的手">
-<meta property="og:description" content="Free MIT open-source Mac agent bridge. Menu-bar app + CLI/MCP. Give a cloud AI agent hands on your own Mac.">
+<meta name="description" content="MacHands is a free MIT open-source agent bridge: menu-bar app + CLI/MCP. 免费开源的 Mac 代理桥。">
+<meta property="og:title" content="MacHands — Give a cloud AI agent hands on your Mac">
+<meta property="og:description" content="Free MIT open-source Mac agent bridge. Menu-bar app + CLI/MCP. Not a disk tool.">
 <meta property="og:url" content="https://machands.pages.dev/">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://machands.pages.dev/">
@@ -34,8 +49,9 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+html:not([lang="en"]) .lang-en { display: none !important; }
+html[lang="en"] .lang-zh { display: none !important; }
 
-/* Nav */
 .topnav {
   position: sticky; top: 0; z-index: 50;
   background: rgba(245,245,247,.85);
@@ -50,7 +66,7 @@ a:hover { text-decoration: underline; }
 .logo { font-weight: 700; font-size: 17px; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
 .logo:hover { text-decoration: none; opacity: .8; }
 .logo span { color: var(--muted); font-weight: 500; font-size: 13px; margin-left: 8px; }
-.topnav-links { display: flex; gap: 20px; align-items: center; font-size: 14px; }
+.topnav-links { display: flex; gap: 16px; align-items: center; font-size: 14px; }
 .topnav-links a { color: var(--muted); text-decoration: none; }
 .topnav-links a:hover { color: var(--text); text-decoration: none; }
 .btn-nav {
@@ -58,12 +74,18 @@ a:hover { text-decoration: underline; }
   border-radius: 980px; font-weight: 500; font-size: 13px;
 }
 .btn-nav:hover { background: var(--accent-hover); text-decoration: none !important; }
-
-/* Hero */
-.hero {
-  padding: 72px 0 56px;
-  text-align: center;
+.lang-switch {
+  display: inline-flex; border: 1px solid var(--border); border-radius: 980px;
+  overflow: hidden; background: var(--surface);
 }
+.lang-switch button {
+  appearance: none; border: 0; background: transparent;
+  color: var(--muted); font: inherit; font-size: 12px; font-weight: 600;
+  padding: 4px 9px; cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] { background: #1d1d1f; color: #fff; }
+
+.hero { padding: 72px 0 56px; text-align: center; }
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 13px; font-weight: 500; color: var(--muted);
@@ -75,21 +97,11 @@ a:hover { text-decoration: underline; }
 .hero h1 {
   font-size: clamp(36px, 6vw, 52px);
   font-weight: 700; letter-spacing: -0.035em; line-height: 1.12;
-  margin-bottom: 12px;
-}
-.hero .en {
-  font-size: clamp(18px, 3vw, 22px);
-  color: var(--muted); font-weight: 500; margin-bottom: 20px;
-  letter-spacing: 0.01em;
+  margin-bottom: 20px;
 }
 .hero .lead {
   font-size: clamp(17px, 2.4vw, 20px);
-  color: var(--muted); max-width: 640px; margin: 0 auto 12px;
-  line-height: 1.5;
-}
-.hero .lead-en {
-  font-size: 15px;
-  color: var(--muted); max-width: 620px; margin: 0 auto 32px;
+  color: var(--muted); max-width: 640px; margin: 0 auto 32px;
   line-height: 1.5;
 }
 .cta-row {
@@ -99,7 +111,7 @@ a:hover { text-decoration: underline; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   font-size: 16px; font-weight: 560; padding: 12px 24px;
   border-radius: 980px; border: none; cursor: pointer;
-  text-decoration: none; transition: background .15s, opacity .15s, transform .1s;
+  text-decoration: none; transition: background .15s, opacity .15s;
 }
 .btn:hover { text-decoration: none; }
 .btn-primary { background: var(--accent); color: #fff; }
@@ -111,22 +123,16 @@ a:hover { text-decoration: underline; }
 .btn-secondary:hover { background: #fafafa; color: var(--text); }
 .hero-meta { font-size: 13px; color: var(--muted); }
 
-/* Sections */
 section { padding: 56px 0; }
 .section-title {
   font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
   text-align: center; margin-bottom: 8px;
 }
 .section-sub {
-  text-align: center; color: var(--muted); margin-bottom: 8px;
+  text-align: center; color: var(--muted); margin-bottom: 36px;
   font-size: 16px; max-width: 560px; margin-left: auto; margin-right: auto;
 }
-.section-sub + .section-sub { margin-bottom: 36px; font-size: 14px; }
-
-/* Cards grid */
-.cards {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-}
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 @media (max-width: 720px) {
   .cards { grid-template-columns: 1fr; }
   .topnav-links .hide-sm { display: none; }
@@ -143,12 +149,8 @@ section { padding: 56px 0; }
 }
 .card h3 { font-size: 17px; font-weight: 650; margin-bottom: 8px; letter-spacing: -0.01em; }
 .card p { font-size: 15px; color: var(--muted); line-height: 1.5; }
-.card .en-line { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); }
 
-/* Trust */
-.trust-grid {
-  display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px;
-}
+.trust-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
 @media (max-width: 720px) { .trust-grid { grid-template-columns: 1fr; } }
 .trust-list { list-style: none; }
 .trust-list li {
@@ -165,36 +167,32 @@ section { padding: 56px 0; }
 .trust-list strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
 .trust-list span { color: var(--muted); font-size: 14px; }
 
-/* Open source */
-.pricing-wrap { display: flex; justify-content: center; }
-.price-card {
+.oss-wrap { display: flex; justify-content: center; }
+.oss-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 20px; padding: 36px 40px; max-width: 480px; width: 100%;
+  border-radius: 20px; padding: 36px 40px; max-width: 520px; width: 100%;
   box-shadow: var(--shadow); text-align: center;
 }
-.price-card .label {
+.oss-card .label {
   font-size: 13px; font-weight: 600; color: var(--accent);
   text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px;
 }
-.price-card .amt {
+.oss-card .amt {
   font-size: 36px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.15;
   margin-bottom: 8px;
 }
-.price-card .once { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-.price-card ul {
-  list-style: none; text-align: left; margin: 0 0 28px; font-size: 15px;
-}
-.price-card ul li {
+.oss-card .once { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+.oss-card ul { list-style: none; text-align: left; margin: 0 0 28px; font-size: 15px; }
+.oss-card ul li {
   padding: 8px 0 8px 28px; position: relative; color: var(--text);
   border-bottom: 1px solid #f0f0f2;
 }
-.price-card ul li:last-child { border-bottom: none; }
-.price-card ul li::before {
+.oss-card ul li:last-child { border-bottom: none; }
+.oss-card ul li::before {
   content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700;
 }
-.price-note { font-size: 13px; color: var(--muted); margin-top: 16px; line-height: 1.4; }
+.oss-note { font-size: 13px; color: var(--muted); margin-top: 16px; line-height: 1.4; }
 
-/* Download section */
 #get .dl-box {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 20px; padding: 40px 32px; text-align: center;
@@ -203,7 +201,23 @@ section { padding: 56px 0; }
 #get .dl-box h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.02em; }
 #get .dl-box p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 
-/* FAQ */
+.media-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;
+}
+@media (max-width: 720px) { .media-grid { grid-template-columns: 1fr; } }
+.media-slot {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  min-height: 180px;
+}
+.media-slot img, .media-slot video { display: block; width: 100%; height: auto; }
+.media-slot.wide { grid-column: 1 / -1; }
+.media-empty {
+  background: var(--surface); border: 1px dashed var(--border);
+  border-radius: var(--radius); padding: 28px 24px; text-align: center;
+  color: var(--muted); font-size: 15px; line-height: 1.5;
+}
+
 .faq { max-width: 640px; margin: 0 auto; }
 .faq details {
   background: var(--surface); border: 1px solid var(--border);
@@ -218,11 +232,8 @@ section { padding: 56px 0; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 20px; }
 .faq details[open] summary::after { content: "−"; }
-.faq details p {
-  margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.55;
-}
+.faq details p { margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.55; }
 
-/* Footer */
 footer {
   border-top: 1px solid var(--border); padding: 40px 0 48px; margin-top: 24px;
   background: var(--surface);
@@ -242,12 +253,16 @@ footer {
 
 <header class="topnav">
   <div class="topnav-inner">
-    <a class="logo" href="index.html">MacHands<span>MIT · 开源免费</span></a>
+    <a class="logo" href="index.html">MacHands<span class="lang-zh">MIT · 开源免费</span><span class="lang-en">MIT · Free</span></a>
     <nav class="topnav-links">
-      <a class="hide-sm" href="#how">用法</a>
-      <a class="hide-sm" href="#trust">信任</a>
-      <a class="hide-sm" href="#open-source">开源</a>
+      <a class="hide-sm" href="#how"><span class="lang-zh">用法</span><span class="lang-en">How</span></a>
+      <a class="hide-sm" href="#media"><span class="lang-zh">演示</span><span class="lang-en">Demo</span></a>
+      <a class="hide-sm" href="#open-source"><span class="lang-zh">开源</span><span class="lang-en">Source</span></a>
       <a class="hide-sm" href="#faq">FAQ</a>
+      <span class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-set-lang="zh-CN" aria-pressed="true">中</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </span>
       <a class="btn-nav" href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
     </nav>
   </div>
@@ -255,88 +270,156 @@ footer {
 
 <main>
   <section class="hero wrap">
-    <div class="badge"><span class="dot" aria-hidden="true"></span> MIT 开源 · 完全免费 · 菜单栏 App + CLI / MCP</div>
-    <h1>给你的云端 AI 代理<br>一双 Mac 上的手</h1>
-    <p class="en">Give a cloud AI agent hands on your own Mac.</p>
-    <p class="lead">Claude Code、Codex、Cursor 跑在云端时碰不到 Xcode、模拟器、Safari、公证。MacHands 让它们用你自己的 Mac 干活——不用租机器，不用开远程登录，不用懂 SSH。每一手都经你同意。</p>
-    <p class="lead-en">A free, MIT-licensed agent bridge: menu-bar app on your Mac, CLI and MCP on the agent side.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands">在 GitHub 查看源码</a>
-      <a class="btn btn-secondary" href="#how">了解用法</a>
+    <div class="lang-zh">
+      <div class="badge"><span class="dot" aria-hidden="true"></span> MIT 开源 · 完全免费 · 菜单栏 App + CLI / MCP</div>
+      <h1>给你的云端 AI 代理<br>一双 Mac 上的手</h1>
+      <p class="lead">Claude Code、Codex、Cursor 跑在云端时碰不到 Xcode、模拟器、Safari、公证。MacHands 是免费的 MIT 开源代理桥：让它们用你自己的 Mac 干活——不用租机器，不用开远程登录，不用懂 SSH。每一手都经你同意。</p>
     </div>
-    <p class="hero-meta">公开站点：<a href="https://machands.pages.dev/">machands.pages.dev</a> · 源码仓库：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
+    <div class="lang-en">
+      <div class="badge"><span class="dot" aria-hidden="true"></span> MIT · Free · Menu-bar app + CLI / MCP</div>
+      <h1>Give a cloud AI agent<br>hands on your own Mac</h1>
+      <p class="lead">Claude Code, Codex, and Cursor cannot reach Xcode, simulators, Safari, or notarization from the cloud. MacHands is a free MIT agent bridge: they use your Mac — no rented machine, no Remote Login, no SSH. Every action needs your consent.</p>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands"><span class="lang-zh">在 GitHub 查看源码</span><span class="lang-en">View source on GitHub</span></a>
+      <a class="btn btn-secondary" href="#how"><span class="lang-zh">了解用法</span><span class="lang-en">How it works</span></a>
+    </div>
+    <p class="hero-meta lang-zh">公开站点：<a href="https://machands.pages.dev/">machands.pages.dev</a> · 源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
+    <p class="hero-meta lang-en">Site: <a href="https://machands.pages.dev/">machands.pages.dev</a> · Source: <a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
   </section>
 
   <section id="how" class="wrap">
-    <h2 class="section-title">三步开始</h2>
-    <p class="section-sub">用户只做三步。配对之后选一次授权范围，之后不再打扰。</p>
-    <p class="section-sub">Three steps. You stay in control of every action.</p>
+    <div class="lang-zh">
+      <h2 class="section-title">三步开始</h2>
+      <p class="section-sub">配对之后选一次授权范围，之后不再打扰。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">Three steps</h2>
+      <p class="section-sub">Pick an access scope once after pairing. It will not keep asking.</p>
+    </div>
     <div class="cards">
       <div class="card">
         <div class="num">1</div>
-        <h3>打开 MacHands.app</h3>
-        <p>菜单栏出现一只手。从源码构建，或在仓库的 GitHub Releases 取已发布的应用构建。<span class="en-line">Open the menu-bar app. A hand icon appears.</span></p>
+        <div class="lang-zh">
+          <h3>打开 MacHands.app</h3>
+          <p>菜单栏出现一只手。请从源码构建。GitHub 上的 v0.3.1 是源码发布，没有附带已签名的 Mac 安装包。</p>
+        </div>
+        <div class="lang-en">
+          <h3>Open MacHands.app</h3>
+          <p>A hand appears in the menu bar. Build from source. GitHub v0.3.1 is a source release with no signed Mac app attached.</p>
+        </div>
       </div>
       <div class="card">
         <div class="num">2</div>
-        <h3>点「复制给 agent」</h3>
-        <p>得到一段配对文字。配对码 10 分钟有效，只能用一次。<span class="en-line">Copy the pairing block for your cloud agent.</span></p>
+        <div class="lang-zh">
+          <h3>点「复制给 agent」</h3>
+          <p>得到一段配对文字。配对码 10 分钟有效，只能用一次。</p>
+        </div>
+        <div class="lang-en">
+          <h3>Click “Copy for agent”</h3>
+          <p>You get a pairing block. The code lasts 10 minutes and can be used only once.</p>
+        </div>
       </div>
       <div class="card">
         <div class="num">3</div>
-        <h3>贴给你的云端代理</h3>
-        <p>它会自己执行里面那一行。几秒后菜单栏显示「已连接」。然后选一次范围：开发者、只读、或逐条审批。<span class="en-line">Paste it into Claude Code, Codex, Cursor, or any agent that can run a command.</span></p>
+        <div class="lang-zh">
+          <h3>贴给你的云端代理</h3>
+          <p>它会自己执行里面那一行。几秒后菜单栏显示「已连接」。然后选一次范围：开发者、只读、或逐条审批。</p>
+        </div>
+        <div class="lang-en">
+          <h3>Paste it into your cloud agent</h3>
+          <p>The agent runs that one line. The menu bar shows Connected. Then pick a scope once: developer, read-only, or ask every time.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <section id="media" class="wrap">
+    <div class="lang-zh">
+      <h2 class="section-title">截图与演示</h2>
+      <p class="section-sub">只放真实的产品画面，不使用假图。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">Screenshots and demo</h2>
+      <p class="section-sub">Real product media only. Nothing invented.</p>
+    </div>
+    <div class="media-grid" data-media-root>
+      <figure class="media-slot" hidden>
+        <img data-try-src="media/menu-bar.png" alt="MacHands menu bar">
+      </figure>
+      <figure class="media-slot" hidden>
+        <img data-try-src="media/authorize.png" alt="MacHands authorization">
+      </figure>
+      <figure class="media-slot wide" hidden>
+        <video data-try-src="media/demo.mp4" controls playsinline preload="metadata"></video>
+      </figure>
+    </div>
+    <p class="media-empty lang-zh" data-media-empty>还没有公开的产品截图或演示视频。把真实文件放到 <code>media/menu-bar.png</code>、<code>media/authorize.png</code>、<code>media/demo.mp4</code> 后，这里会自动显示。</p>
+    <p class="media-empty lang-en" data-media-empty>No public screenshots or demo video yet. Add real files at <code>media/menu-bar.png</code>, <code>media/authorize.png</code>, and <code>media/demo.mp4</code> and this section will show them.</p>
+  </section>
+
   <section id="trust" class="wrap">
-    <h2 class="section-title">你能看见、你能停</h2>
-    <p class="section-sub">危险命令有黑名单。随时可以暂停。授权可以撤销。</p>
-    <p class="section-sub">Plain permissions. End-to-end encryption. No remote login.</p>
+    <div class="lang-zh">
+      <h2 class="section-title">你能看见、你能停</h2>
+      <p class="section-sub">危险命令有黑名单。随时可以暂停。授权可以撤销。中继请自建。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">You can see it. You can stop it.</h2>
+      <p class="section-sub">Dangerous commands are blocked. Pause anytime. Revoke access. Self-host the relay.</p>
+    </div>
     <div class="trust-grid">
       <div class="card">
         <ul class="trust-list">
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>MIT 开源，完全免费</strong><span>源码在 GitHub。不收费，没有内购，没有结账页。</span></div>
+            <div class="lang-zh"><strong>MIT 开源，完全免费</strong><span>源码在 GitHub。没有付费服务。</span></div>
+            <div class="lang-en"><strong>MIT and free</strong><span>The source is on GitHub. There is no paid service.</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>不用开远程登录</strong><span>没有 sshd 暴露。执行命令的是 App 本身。</span></div>
+            <div class="lang-zh"><strong>不用开远程登录</strong><span>没有 sshd 暴露。执行命令的是 App 本身。</span></div>
+            <div class="lang-en"><strong>No Remote Login</strong><span>No sshd is exposed. The app itself runs the commands.</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>端到端加密</strong><span>agent 与 Mac 之间 X25519 + ChaCha20-Poly1305。中继只见密文。</span></div>
+            <div class="lang-zh"><strong>端到端加密</strong><span>agent 与 Mac 之间 X25519 + ChaCha20-Poly1305。中继只见密文。</span></div>
+            <div class="lang-en"><strong>End-to-end encryption</strong><span>X25519 + ChaCha20-Poly1305 between agent and Mac. The relay sees ciphertext only.</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>审计日志</strong><span>每条命令和你的决定都写进 <code>~/Library/Logs/MacHands/audit.log</code>。</span></div>
+            <div class="lang-zh"><strong>审计日志</strong><span>每条命令和你的决定都写进 <code>~/Library/Logs/MacHands/audit.log</code>。</span></div>
+            <div class="lang-en"><strong>Audit log</strong><span>Every command and your decision is written to <code>~/Library/Logs/MacHands/audit.log</code>.</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-              <div><strong>法律页面公开</strong><span><a href="privacy.html">隐私</a> · <a href="terms.html">条款</a> · <a href="refund.html">开源说明</a></span></div>
+            <div class="lang-zh"><strong>中继只自建</strong><span>说明见仓库 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>。</span></div>
+            <div class="lang-en"><strong>Self-host the relay</strong><span>See <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a> in the repo.</span></div>
           </li>
         </ul>
       </div>
       <div class="card">
-        <h3 style="margin-bottom:14px;font-size:17px;">它不是什么</h3>
+        <h3 class="lang-zh" style="margin-bottom:14px;font-size:17px;">它不是什么</h3>
+        <h3 class="lang-en" style="margin-bottom:14px;font-size:17px;">What it is not</h3>
         <ul class="trust-list">
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>不是外盘搬家工具</strong><span>路径保留的外置磁盘迁移是另一款产品 DataDance，不是 MacHands。</span></div>
+            <div class="lang-zh"><strong>不是磁盘工具</strong><span>不是 DataDance，也不是 MacDisk。MacHands 不做外置磁盘搬家。</span></div>
+            <div class="lang-en"><strong>Not a disk tool</strong><span>Not DataDance. Not MacDisk. MacHands does not relocate external disks.</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>不是付费软件</strong><span>没有 App Store 内购，也没有一次性标价。</span></div>
+            <div class="lang-zh"><strong>不是付费服务</strong><span>没有付费档。源码按 MIT 公开。</span></div>
+            <div class="lang-en"><strong>Not a paid service</strong><span>There is no paid tier. The source is published under MIT.</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>不是远程桌面租赁</strong><span>用的是你自己的 Mac。可自建中继，也可以用仓库说明里的默认中继。</span></div>
+            <div class="lang-zh"><strong>不是远程桌面租赁</strong><span>用的是你自己的 Mac。</span></div>
+            <div class="lang-en"><strong>Not a rented Mac</strong><span>It uses the Mac you already have.</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>不是 Apple / Anthropic / OpenAI / xAI 的产品</strong><span>MacHands 与这些公司没有隶属关系。</span></div>
+            <div class="lang-zh"><strong>不是 Apple / Anthropic / OpenAI / xAI 的产品</strong><span>没有隶属关系。</span></div>
+            <div class="lang-en"><strong>Not an Apple, Anthropic, OpenAI, or xAI product</strong><span>No affiliation.</span></div>
           </li>
         </ul>
       </div>
@@ -344,69 +427,133 @@ footer {
   </section>
 
   <section id="open-source" class="wrap">
-    <h2 class="section-title">开源与免费</h2>
-    <p class="section-sub">项目以 MIT 许可公开。不收费。</p>
-    <p class="section-sub">Fully open source. Not charged.</p>
-    <div class="pricing-wrap">
-      <div class="price-card">
+    <div class="lang-zh">
+      <h2 class="section-title">开源与免费</h2>
+      <p class="section-sub">项目以 MIT 许可公开。没有付费服务。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">Open source and free</h2>
+      <p class="section-sub">Published under the MIT License. There is no paid service.</p>
+    </div>
+    <div class="oss-wrap">
+      <div class="oss-card">
         <div class="label">Open source</div>
-        <div class="amt">MIT · 免费</div>
-        <p class="once">Free to use, study, and fork. No paid edition.</p>
-        <ul>
-          <li>菜单栏 App（Swift）+ CLI / MCP（npm 包 <code>machands</code>）+ 可自建中继</li>
-          <li>源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></li>
-          <li>许可：<a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a></li>
-          <li>macOS 13+ · 中文 / English</li>
-        </ul>
-        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands" style="width:100%;">打开 GitHub 仓库</a>
-        <p class="price-note">应用构建会发布在该仓库的 GitHub Releases。当前请从仓库查看源码与发布说明。</p>
+        <div class="lang-zh">
+          <div class="amt">MIT · 免费</div>
+          <p class="once">使用、阅读、修改都可以。没有付费档。</p>
+          <ul>
+            <li>菜单栏 App（Swift）+ CLI / MCP（npm 包 <code>machands</code>）+ 自建中继</li>
+            <li>源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></li>
+            <li>许可：<a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a></li>
+            <li>中继：<a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a></li>
+          </ul>
+        </div>
+        <div class="lang-en">
+          <div class="amt">MIT · Free</div>
+          <p class="once">Use, read, and change it. There is no paid tier.</p>
+          <ul>
+            <li>Menu-bar app (Swift) + CLI / MCP (npm package <code>machands</code>) + self-hosted relay</li>
+            <li>Source: <a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></li>
+            <li>License: <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a></li>
+            <li>Relay: <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a></li>
+          </ul>
+        </div>
+        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands" style="width:100%;"><span class="lang-zh">打开 GitHub 仓库</span><span class="lang-en">Open the GitHub repo</span></a>
+        <p class="oss-note lang-zh"><a href="https://github.com/UnstoppableCurry/MacHands/releases/tag/v0.3.1">v0.3.1</a> 是源码发布，没有已签名的 App 附件。请按仓库 README 在 Mac 上构建。</p>
+        <p class="oss-note lang-en"><a href="https://github.com/UnstoppableCurry/MacHands/releases/tag/v0.3.1">v0.3.1</a> is a source release with no signed app attached. Build on a Mac from the README.</p>
       </div>
     </div>
   </section>
 
   <section id="get" class="wrap">
-    <h2 class="section-title">怎么拿到</h2>
-    <p class="section-sub">先看源码。已发布的应用构建只放在 GitHub Releases。</p>
-    <p class="section-sub">View the source first. App builds, when published, live on GitHub Releases.</p>
+    <div class="lang-zh">
+      <h2 class="section-title">怎么拿到</h2>
+      <p class="section-sub">入口是 GitHub 源码。不要下载未经核对的安装包。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">How to get it</h2>
+      <p class="section-sub">The GitHub source is the entry. Do not download an installer we have not verified.</p>
+    </div>
     <div class="dl-box">
-      <h3>从 GitHub 获取</h3>
-      <p>MacHands 的真源是开源仓库。应用构建会发布在 GitHub Releases；当前请打开仓库查看源码、说明与发布页，不要从别处下未经核对的安装包。</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands">查看源码</a>
-        <a class="btn btn-secondary" href="mailto:wangtianxin666@icloud.com?subject=MacHands">联系</a>
+      <div class="lang-zh">
+        <h3>从 GitHub 获取</h3>
+        <p>v0.3.1 只有源码，没有签名安装包。Mac App 请在 Mac 上按 README 构建。CLI / MCP：<code>npx -y machands</code>。中继请自建，见 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>。</p>
       </div>
-      <p class="hero-meta" style="margin-top:20px;">接入示例：<code>npx -y machands mcp</code> · 支持：<a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
+      <div class="lang-en">
+        <h3>Get it from GitHub</h3>
+        <p>v0.3.1 is source only — no signed installer. Build the Mac app from the README. CLI / MCP: <code>npx -y machands</code>. Self-host the relay; see <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands"><span class="lang-zh">查看源码</span><span class="lang-en">View source</span></a>
+        <a class="btn btn-secondary" href="https://github.com/UnstoppableCurry/MacHands/releases/tag/v0.3.1"><span class="lang-zh">v0.3.1 源码发布</span><span class="lang-en">v0.3.1 source release</span></a>
+      </div>
+      <p class="hero-meta lang-zh" style="margin-top:20px;">接入：<code>npx -y machands mcp</code> · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
+      <p class="hero-meta lang-en" style="margin-top:20px;">Connect: <code>npx -y machands mcp</code> · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
     </div>
   </section>
 
   <section id="faq" class="wrap">
-    <h2 class="section-title">常见问题</h2>
-    <p class="section-sub">Short answers. 中文为主，英文对照。</p>
+    <div class="lang-zh">
+      <h2 class="section-title">常见问题</h2>
+      <p class="section-sub">和英文页同一套说法。</p>
+    </div>
+    <div class="lang-en">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-sub">The same claims as the Chinese page.</p>
+    </div>
     <div class="faq">
-      <details>
-        <summary>这是外盘搬家 / 磁盘清理工具吗？</summary>
-        <p>不是。MacHands 是给云端 AI 代理用的 Mac 桥：菜单栏 App + CLI/MCP。路径保留的外置磁盘迁移是另一款产品 DataDance，和本站无关。</p>
-      </details>
-      <details>
-        <summary>收费吗？要不要付钱？</summary>
-        <p>不收费。源码以 MIT 开源，没有标价、没有结账、没有 App Store 内购。你可以直接在 GitHub 使用和修改。</p>
-      </details>
-      <details>
-        <summary>How do I get MacHands?</summary>
-        <p>Open the source on <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>. App builds are published on that repo’s GitHub Releases. This site does not host a separate installer.</p>
-      </details>
-      <details>
-        <summary>需要打开「远程登录」或会 SSH 吗？</summary>
-        <p>不需要。App 自己执行命令，自己就是隧道端。没有 sshd 暴露。</p>
-      </details>
-      <details>
-        <summary>会不会在 Mac App Store 上架？</summary>
-        <p>不会作为商店付费应用来卖。Mac App Store 沙盒不允许执行任意命令、注入键鼠、截其他 App 的屏，而这些正是 MacHands 的能力。请用 GitHub 上的源码；应用构建会发布在该仓库的 Releases。</p>
-      </details>
-      <details>
-        <summary>怎么联系？</summary>
-        <p>邮件 <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>。作者：Tianxin Wang。问题与补丁请到 <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a> 开 issue 或 pull request。</p>
-      </details>
+      <div class="lang-zh">
+        <details>
+          <summary>这是磁盘工具、DataDance 或 MacDisk 吗？</summary>
+          <p>不是。MacHands 是给云端 AI 用的代理桥：菜单栏 App + CLI/MCP。它不做外置磁盘搬家。</p>
+        </details>
+        <details>
+          <summary>要付钱吗？</summary>
+          <p>不用。源码以 MIT 开源，没有付费服务。</p>
+        </details>
+        <details>
+          <summary>怎么安装？</summary>
+          <p>打开 <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>。v0.3.1 是源码发布，没有已签名的 App。请按 README 构建。</p>
+        </details>
+        <details>
+          <summary>需要打开「远程登录」吗？</summary>
+          <p>不需要。App 自己执行命令。没有 sshd 暴露。</p>
+        </details>
+        <details>
+          <summary>中继怎么跑？</summary>
+          <p>只支持自建。请看仓库里的 <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>。</p>
+        </details>
+        <details>
+          <summary>怎么联系？</summary>
+          <p>邮件 <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>，或到 GitHub 开 issue。</p>
+        </details>
+      </div>
+      <div class="lang-en">
+        <details>
+          <summary>Is this a disk tool, DataDance, or MacDisk?</summary>
+          <p>No. MacHands is an agent bridge: menu-bar app + CLI/MCP. It does not relocate external disks.</p>
+        </details>
+        <details>
+          <summary>Do I have to pay?</summary>
+          <p>No. The source is MIT-licensed. There is no paid service.</p>
+        </details>
+        <details>
+          <summary>How do I install it?</summary>
+          <p>Open <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>. v0.3.1 is a source release with no signed app. Build it from the README.</p>
+        </details>
+        <details>
+          <summary>Do I need Remote Login?</summary>
+          <p>No. The app runs commands itself. No sshd is exposed.</p>
+        </details>
+        <details>
+          <summary>How do I run the relay?</summary>
+          <p>Self-host only. See <a href="https://github.com/UnstoppableCurry/MacHands/blob/master/relay/README.md">relay/README.md</a>.</p>
+        </details>
+        <details>
+          <summary>How do I get in touch?</summary>
+          <p>Email <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a> or open a GitHub issue.</p>
+        </details>
+      </div>
     </div>
   </section>
 </main>
@@ -415,19 +562,19 @@ footer {
   <div class="wrap footer-inner">
     <div>
       <div class="footer-brand">MacHands</div>
-      <p class="footer-muted" style="margin-bottom:6px;">MIT 开源 · 给云端 AI 一双 Mac 上的手</p>
+      <p class="footer-muted lang-zh" style="margin-bottom:6px;">MIT 开源 · 给云端 AI 一双 Mac 上的手</p>
+      <p class="footer-muted lang-en" style="margin-bottom:6px;">MIT · Hands on your Mac for a cloud AI agent</p>
       <p class="footer-muted">Tianxin Wang · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a><br>
-      站点：<a href="https://machands.pages.dev/">machands.pages.dev</a> · <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a></p>
+      <a href="https://machands.pages.dev/">machands.pages.dev</a> · <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a></p>
     </div>
     <nav class="footer-links">
-      <a href="https://github.com/UnstoppableCurry/MacHands">源码</a>
-      <a href="#open-source">开源</a>
-      <a href="terms.html">条款</a>
-      <a href="privacy.html">隐私</a>
-      <a href="refund.html">开源说明</a>
+      <a href="https://github.com/UnstoppableCurry/MacHands"><span class="lang-zh">源码</span><span class="lang-en">Source</span></a>
+      <a href="terms.html"><span class="lang-zh">条款</span><span class="lang-en">Terms</span></a>
+      <a href="privacy.html"><span class="lang-zh">隐私</span><span class="lang-en">Privacy</span></a>
+      <a href="refund.html"><span class="lang-zh">开源说明</span><span class="lang-en">Nothing to buy</span></a>
     </nav>
   </div>
 </footer>
-
+<script src="site.js"></script>
 </body>
 </html>
