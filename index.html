@@ -1,15 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>MacHands — Path-preserving external disk relocation for Mac</title>
+<title>MacHands — 给云端 AI 代理一双 Mac 上的手</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="MacHands (MacDisk AI / 外盘智管) — native macOS path-preserving external disk relocation. Developer ID notarized. Mac App Store IAP primary; direct $49 backup when live.">
-<meta property="og:title" content="MacHands — Path-preserving external disk relocation">
-<meta property="og:description" content="Native macOS utility. Relocate data to your external SSD without breaking paths. Notarized. $49 one-time.">
+<meta name="description" content="MacHands 是免费的 MIT 开源 Mac 代理桥：菜单栏 App + CLI/MCP，让云端 AI 用你自己的 Mac 干活，每一下都经你同意。">
+<meta property="og:title" content="MacHands — 给云端 AI 代理一双 Mac 上的手">
+<meta property="og:description" content="Free MIT open-source Mac agent bridge. Menu-bar app + CLI/MCP. Give a cloud AI agent hands on your own Mac.">
 <meta property="og:url" content="https://machands.pages.dev/">
 <meta property="og:type" content="website">
-<!-- DOWNLOAD_URL = "https://github.com/UnstoppableCurry/machands-site/releases/download/v0.1.0/MacHands-0.1.0.dmg" -->
 <style>
 :root {
   --bg: #f5f5f7;
@@ -26,7 +25,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -77,15 +76,20 @@ a:hover { text-decoration: underline; }
   font-weight: 700; letter-spacing: -0.035em; line-height: 1.12;
   margin-bottom: 12px;
 }
-.hero .zh {
+.hero .en {
   font-size: clamp(18px, 3vw, 22px);
   color: var(--muted); font-weight: 500; margin-bottom: 20px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 .hero .lead {
-  font-size: clamp(18px, 2.4vw, 21px);
-  color: var(--muted); max-width: 560px; margin: 0 auto 32px;
-  line-height: 1.45;
+  font-size: clamp(17px, 2.4vw, 20px);
+  color: var(--muted); max-width: 640px; margin: 0 auto 12px;
+  line-height: 1.5;
+}
+.hero .lead-en {
+  font-size: 15px;
+  color: var(--muted); max-width: 620px; margin: 0 auto 32px;
+  line-height: 1.5;
 }
 .cta-row {
   display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 16px;
@@ -104,14 +108,6 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border); box-shadow: var(--shadow);
 }
 .btn-secondary:hover { background: #fafafa; color: var(--text); }
-.btn-disabled, .btn[aria-disabled="true"] {
-  background: #c7c7cc; color: #fff; cursor: not-allowed; pointer-events: none;
-}
-.btn-ghost {
-  background: transparent; color: var(--accent); border: 1px solid transparent;
-  padding: 10px 16px; font-size: 15px;
-}
-.btn-ghost:hover { text-decoration: underline; }
 .hero-meta { font-size: 13px; color: var(--muted); }
 
 /* Sections */
@@ -121,9 +117,10 @@ section { padding: 56px 0; }
   text-align: center; margin-bottom: 8px;
 }
 .section-sub {
-  text-align: center; color: var(--muted); margin-bottom: 36px;
-  font-size: 16px; max-width: 520px; margin-left: auto; margin-right: auto;
+  text-align: center; color: var(--muted); margin-bottom: 8px;
+  font-size: 16px; max-width: 560px; margin-left: auto; margin-right: auto;
 }
+.section-sub + .section-sub { margin-bottom: 36px; font-size: 14px; }
 
 /* Cards grid */
 .cards {
@@ -145,6 +142,7 @@ section { padding: 56px 0; }
 }
 .card h3 { font-size: 17px; font-weight: 650; margin-bottom: 8px; letter-spacing: -0.01em; }
 .card p { font-size: 15px; color: var(--muted); line-height: 1.5; }
+.card .en-line { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); }
 
 /* Trust */
 .trust-grid {
@@ -166,11 +164,11 @@ section { padding: 56px 0; }
 .trust-list strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
 .trust-list span { color: var(--muted); font-size: 14px; }
 
-/* Pricing */
+/* Open source */
 .pricing-wrap { display: flex; justify-content: center; }
 .price-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 20px; padding: 36px 40px; max-width: 400px; width: 100%;
+  border-radius: 20px; padding: 36px 40px; max-width: 480px; width: 100%;
   box-shadow: var(--shadow); text-align: center;
 }
 .price-card .label {
@@ -178,10 +176,9 @@ section { padding: 56px 0; }
   text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px;
 }
 .price-card .amt {
-  font-size: 48px; font-weight: 700; letter-spacing: -0.04em; line-height: 1;
-  margin-bottom: 4px;
+  font-size: 36px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.15;
+  margin-bottom: 8px;
 }
-.price-card .amt span { font-size: 18px; font-weight: 500; color: var(--muted); }
 .price-card .once { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 .price-card ul {
   list-style: none; text-align: left; margin: 0 0 28px; font-size: 15px;
@@ -197,13 +194,13 @@ section { padding: 56px 0; }
 .price-note { font-size: 13px; color: var(--muted); margin-top: 16px; line-height: 1.4; }
 
 /* Download section */
-#download .dl-box {
+#get .dl-box {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 20px; padding: 40px 32px; text-align: center;
   box-shadow: var(--shadow); max-width: 560px; margin: 0 auto;
 }
-#download .dl-box h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.02em; }
-#download .dl-box p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+#get .dl-box h3 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.02em; }
+#get .dl-box p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 
 /* FAQ */
 .faq { max-width: 640px; margin: 0 auto; }
@@ -244,179 +241,170 @@ footer {
 
 <header class="topnav">
   <div class="topnav-inner">
-    <a class="logo" href="index.html">MacHands<span>MacDisk AI · 外盘智管</span></a>
+    <a class="logo" href="index.html">MacHands<span>MIT · 开源免费</span></a>
     <nav class="topnav-links">
-      <a class="hide-sm" href="#how">How it works</a>
-      <a class="hide-sm" href="#trust">Trust</a>
-      <a class="hide-sm" href="#pricing">Pricing</a>
+      <a class="hide-sm" href="#how">用法</a>
+      <a class="hide-sm" href="#trust">信任</a>
+      <a class="hide-sm" href="#open-source">开源</a>
       <a class="hide-sm" href="#faq">FAQ</a>
-      <a class="btn-nav" href="#download">Download</a>
+      <a class="btn-nav" href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>
     </nav>
   </div>
 </header>
 
 <main>
   <section class="hero wrap">
-    <div class="badge"><span class="dot" aria-hidden="true"></span> Developer ID notarized · Mac App Store coming · macOS 14+</div>
-    <h1>Keep your Mac’s paths.<br>Free space with your external disk.</h1>
-    <p class="zh">外盘智管 · MacDisk AI — 路径不丢的外盘空间管理</p>
-    <p class="lead">MacHands relocates Safe-tier data to your external SSD and leaves symlinks at the original paths — so apps and workflows keep working.</p>
+    <div class="badge"><span class="dot" aria-hidden="true"></span> MIT 开源 · 完全免费 · 菜单栏 App + CLI / MCP</div>
+    <h1>给你的云端 AI 代理<br>一双 Mac 上的手</h1>
+    <p class="en">Give a cloud AI agent hands on your own Mac.</p>
+    <p class="lead">Claude Code、Codex、Cursor 跑在云端时碰不到 Xcode、模拟器、Safari、公证。MacHands 让它们用你自己的 Mac 干活——不用租机器，不用开远程登录，不用懂 SSH。每一手都经你同意。</p>
+    <p class="lead-en">A free, MIT-licensed agent bridge: menu-bar app on your Mac, CLI and MCP on the agent side.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/machands-site/releases/download/v0.1.0/MacHands-0.1.0.dmg">Download</a>
-      <a class="btn btn-secondary" href="#how">Learn more</a>
+      <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands">在 GitHub 查看源码</a>
+      <a class="btn btn-secondary" href="#how">了解用法</a>
     </div>
-    <p class="hero-meta">Also known as MacDisk AI / 外盘智管 · Not a junk cleaner · Mac App Store IAP primary</p>
+    <p class="hero-meta">公开站点：<a href="https://machands.pages.dev/">machands.pages.dev</a> · 源码仓库：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></p>
   </section>
 
   <section id="how" class="wrap">
-    <h2 class="section-title">How it works</h2>
-    <p class="section-sub">Three clear steps. You stay in control of every move.</p>
+    <h2 class="section-title">三步开始</h2>
+    <p class="section-sub">用户只做三步。配对之后选一次授权范围，之后不再打扰。</p>
+    <p class="section-sub">Three steps. You stay in control of every action.</p>
     <div class="cards">
       <div class="card">
         <div class="num">1</div>
-        <h3>Choose your external volume</h3>
-        <p>Pick the SSD once. MacHands remembers it by volume UUID and watches free space on your internal drive.</p>
+        <h3>打开 MacHands.app</h3>
+        <p>菜单栏出现一只手。从源码构建，或在仓库的 GitHub Releases 取已发布的应用构建。<span class="en-line">Open the menu-bar app. A hand icon appears.</span></p>
       </div>
       <div class="card">
         <div class="num">2</div>
-        <h3>Review Safe-tier candidates</h3>
-        <p>Old downloads, Xcode DerivedData / DeviceSupport, caches — you decide what moves. Dry-run first, always.</p>
+        <h3>点「复制给 agent」</h3>
+        <p>得到一段配对文字。配对码 10 分钟有效，只能用一次。<span class="en-line">Copy the pairing block for your cloud agent.</span></p>
       </div>
       <div class="card">
         <div class="num">3</div>
-        <h3>Relocate with paths intact</h3>
-        <p>Data is copied, verified, then replaced with a symlink or stub portal. Original paths keep working. One-click restore when you need it back.</p>
+        <h3>贴给你的云端代理</h3>
+        <p>它会自己执行里面那一行。几秒后菜单栏显示「已连接」。然后选一次范围：开发者、只读、或逐条审批。<span class="en-line">Paste it into Claude Code, Codex, Cursor, or any agent that can run a command.</span></p>
       </div>
     </div>
   </section>
 
   <section id="trust" class="wrap">
-    <h2 class="section-title">Built for trust</h2>
-    <p class="section-sub">Plain permissions. No dark patterns. Notarized for Gatekeeper.</p>
+    <h2 class="section-title">你能看见、你能停</h2>
+    <p class="section-sub">危险命令有黑名单。随时可以暂停。授权可以撤销。</p>
+    <p class="section-sub">Plain permissions. End-to-end encryption. No remote login.</p>
     <div class="trust-grid">
       <div class="card">
         <ul class="trust-list">
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>Developer ID notarized</strong><span>Signed and notarized by Apple. Gatekeeper can verify the direct build.</span></div>
+            <div><strong>MIT 开源，完全免费</strong><span>源码在 GitHub。不收费，没有内购，没有结账页。</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>Mac App Store in progress</strong><span>Primary paid path via App Store IAP. Submitting / connecting now — not claiming live yet.</span></div>
+            <div><strong>不用开远程登录</strong><span>没有 sshd 暴露。执行命令的是 App 本身。</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>You approve every relocation</strong><span>Nothing moves without your selection. Dry-run before commit.</span></div>
+            <div><strong>端到端加密</strong><span>agent 与 Mac 之间 X25519 + ChaCha20-Poly1305。中继只见密文。</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>No account required to try</strong><span>Install and evaluate without signing up.</span></div>
+            <div><strong>审计日志</strong><span>每条命令和你的决定都写进 <code>~/Library/Logs/MacHands/audit.log</code>。</span></div>
           </li>
           <li>
             <span class="icon" aria-hidden="true">✓</span>
-            <div><strong>Open legal pages</strong><span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></span></div>
+            <div><strong>法律页面公开</strong><span><a href="privacy.html">隐私</a> · <a href="terms.html">条款</a> · <a href="refund.html">收费说明</a></span></div>
           </li>
         </ul>
       </div>
       <div class="card">
-        <h3 style="margin-bottom:14px;font-size:17px;">What we never do</h3>
+        <h3 style="margin-bottom:14px;font-size:17px;">它不是什么</h3>
         <ul class="trust-list">
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>Not a junk cleaner</strong><span>No “speed up your Mac” hype. Path-preserving relocation only.</span></div>
+            <div><strong>不是外盘搬家工具</strong><span>路径保留的外置磁盘迁移是另一款产品 DataDance，不是 MacHands。</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>No silent deletes</strong><span>We copy, verify, then link — not wipe without a trail.</span></div>
+            <div><strong>不是付费软件</strong><span>没有 App Store 内购，也没有一次性标价。</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>No password exfiltration</strong><span>Full Disk Access (optional) is for scanning locations you choose — not reading Mail or Messages.</span></div>
+            <div><strong>不是远程桌面租赁</strong><span>用的是你自己的 Mac。可自建中继，也可以用仓库说明里的默认中继。</span></div>
           </li>
           <li>
             <span class="icon no" aria-hidden="true">—</span>
-            <div><strong>Unplug-safe</strong><span>If the external volume is gone, automatic moves pause; already-moved apps ask you to reconnect.</span></div>
+            <div><strong>不是 Apple / Anthropic / OpenAI / xAI 的产品</strong><span>MacHands 与这些公司没有隶属关系。</span></div>
           </li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="pricing" class="wrap">
-    <h2 class="section-title">Pricing</h2>
-    <p class="section-sub">Mac App Store in-app purchase is the primary path. A direct $49 one-time checkout is the backup when a working payment channel is live.</p>
-    <div class="pricing-wrap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:720px;margin:0 auto;">
+  <section id="open-source" class="wrap">
+    <h2 class="section-title">开源与免费</h2>
+    <p class="section-sub">项目以 MIT 许可公开。不收费。</p>
+    <p class="section-sub">Fully open source. Not charged.</p>
+    <div class="pricing-wrap">
       <div class="price-card">
-        <div class="label">Primary · Mac App Store</div>
-        <div class="amt" style="font-size:28px;margin:12px 0 8px;">In-app purchase</div>
-        <p class="once">Buy inside the app via Apple</p>
+        <div class="label">Open source</div>
+        <div class="amt">MIT · 免费</div>
+        <p class="once">Free to use, study, and fork. No paid edition.</p>
         <ul>
-          <li>Primary paid path for MacHands</li>
-          <li>Full path-preserving relocation</li>
-          <li>Dry-run, verify, and one-click restore</li>
-          <li>macOS 14+ · Apple Silicon recommended</li>
+          <li>菜单栏 App（Swift）+ CLI / MCP（npm 包 <code>machands</code>）+ 可自建中继</li>
+          <li>源码：<a href="https://github.com/UnstoppableCurry/MacHands">github.com/UnstoppableCurry/MacHands</a></li>
+          <li>许可：<a href="https://github.com/UnstoppableCurry/MacHands/blob/master/LICENSE">MIT License</a></li>
+          <li>macOS 13+ · 中文 / English</li>
         </ul>
-        <a class="btn btn-primary" href="#pricing" style="width:100%;">App Store — submitting</a>
-        <p class="price-note">Listing and IAP are in progress. No live App Store link yet — we will not fake a checkout.</p>
-      </div>
-      <div class="price-card">
-        <div class="label">Backup · Direct</div>
-        <div class="amt">$49 <span>USD</span></div>
-        <p class="once">One-time direct purchase (when live)</p>
-        <ul>
-          <li>Alternate to App Store IAP</li>
-          <li>Same core MacHands features</li>
-          <li>Developer ID notarized direct build</li>
-          <li>30-day money-back when sales begin</li>
-        </ul>
-        <a class="btn btn-secondary" href="#pricing" style="width:100%;">Checkout opening soon</a>
-        <p class="price-note">Direct checkout is not enabled yet — button stays informational. See <a href="refund.html">Refunds</a>.</p>
+        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands" style="width:100%;">打开 GitHub 仓库</a>
+        <p class="price-note">应用构建会发布在该仓库的 <a href="https://github.com/UnstoppableCurry/MacHands/releases">GitHub Releases</a>。没有单独的商店页。</p>
       </div>
     </div>
   </section>
 
-  <section id="download" class="wrap">
-    <h2 class="section-title">Download</h2>
-    <p class="section-sub">Notarized Developer ID build · v0.1.0 (universal DMG).</p>
+  <section id="get" class="wrap">
+    <h2 class="section-title">怎么拿到</h2>
+    <p class="section-sub">先看源码。已发布的应用构建只放在 GitHub Releases。</p>
+    <p class="section-sub">View the source first. App builds, when published, live on GitHub Releases.</p>
     <div class="dl-box">
-      <h3>MacHands 0.1.0</h3>
-      <p>Developer ID notarized universal DMG for most Macs.<br>
-      Release notes: <a href="https://github.com/UnstoppableCurry/machands-site/releases/tag/v0.1.0">v0.1.0</a></p>
+      <h3>从 GitHub 获取</h3>
+      <p>MacHands 的真源是开源仓库。应用构建会发布在 GitHub Releases；当前请打开仓库查看源码、说明与发布页，不要从别处下未经核对的安装包。</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/machands-site/releases/download/v0.1.0/MacHands-0.1.0.dmg">Download MacHands 0.1.0</a>
-        <a class="btn btn-secondary" href="mailto:wangtianxin666@icloud.com?subject=MacHands%20support">Support</a>
+        <a class="btn btn-primary" href="https://github.com/UnstoppableCurry/MacHands">查看源码</a>
+        <a class="btn btn-secondary" href="https://github.com/UnstoppableCurry/MacHands/releases">GitHub Releases</a>
       </div>
-      <p class="hero-meta" style="margin-top:20px;">Requirements: macOS 14+ · External SSD recommended · Optional Full Disk Access for protected locations</p>
+      <p class="hero-meta" style="margin-top:20px;">接入示例：<code>npx -y machands mcp</code> · 支持：<a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a></p>
     </div>
   </section>
 
   <section id="faq" class="wrap">
-    <h2 class="section-title">FAQ</h2>
-    <p class="section-sub">Short answers to common questions.</p>
+    <h2 class="section-title">常见问题</h2>
+    <p class="section-sub">Short answers. 中文为主，英文对照。</p>
     <div class="faq">
       <details>
-        <summary>Is this a junk cleaner?</summary>
-        <p>No. MacHands is a path-preserving storage relocation tool. It moves data you choose to an external volume and leaves links at the original paths. It is not an optimizer, antivirus, or “speed up your Mac” utility.</p>
+        <summary>这是外盘搬家 / 磁盘清理工具吗？</summary>
+        <p>不是。MacHands 是给云端 AI 代理用的 Mac 桥：菜单栏 App + CLI/MCP。路径保留的外置磁盘迁移是另一款产品 DataDance，和本站无关。</p>
       </details>
       <details>
-        <summary>What happens if I unplug the external disk?</summary>
-        <p>Automatic relocation pauses. Already-moved items that need the volume will prompt you to reconnect — they should not crash the app that opens them.</p>
+        <summary>收费吗？要不要付钱？</summary>
+        <p>不收费。源码以 MIT 开源，没有标价、没有结账、没有 App Store 内购。你可以直接在 GitHub 使用和修改。</p>
       </details>
       <details>
-        <summary>Do I need Full Disk Access?</summary>
-        <p>Only if you want scans of protected locations. You can use MacHands with narrower access; grant FDA only when you are comfortable.</p>
+        <summary>How do I get MacHands?</summary>
+        <p>Open the source on <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a>. App builds are published on that repo’s GitHub Releases. This site does not host a separate installer.</p>
       </details>
       <details>
-        <summary>How do I buy MacHands?</summary>
-        <p><strong>Mac App Store in-app purchase is the primary paid path.</strong> A direct $49 one-time checkout is the backup when a working processor is enabled. Neither is live yet — we will not publish fake payment links. Direct Developer ID download is available below.</p>
+        <summary>需要打开「远程登录」或会 SSH 吗？</summary>
+        <p>不需要。App 自己执行命令，自己就是隧道端。没有 sshd 暴露。</p>
       </details>
       <details>
-        <summary>Will it be on the Mac App Store?</summary>
-        <p>Yes — we are submitting / connecting MacHands to the Mac App Store. App Store IAP is the main monetization plan. Availability will be announced when approved; until then, treat App Store CTAs as “coming soon.”</p>
+        <summary>会不会在 Mac App Store 上架？</summary>
+        <p>不会作为商店付费应用来卖。沙盒也拦不住 MacHands 需要的能力（执行命令、键鼠、截别的 App 的屏）。请用 GitHub 上的源码与 Releases。</p>
       </details>
       <details>
-        <summary>How do I get support?</summary>
-        <p>Email <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>. Seller: Tianxin Wang.</p>
+        <summary>怎么联系？</summary>
+        <p>邮件 <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a>。作者：Tianxin Wang。问题与补丁请到 <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a> 开 issue 或 pull request。</p>
       </details>
     </div>
   </section>
@@ -426,16 +414,16 @@ footer {
   <div class="wrap footer-inner">
     <div>
       <div class="footer-brand">MacHands</div>
-      <p class="footer-muted" style="margin-bottom:6px;">Also MacDisk AI / 外盘智管</p>
-      <p class="footer-muted">Tianxin Wang · Support: <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a><br>
-      Native macOS · Developer ID notarized · macOS 14+</p>
+      <p class="footer-muted" style="margin-bottom:6px;">MIT 开源 · 给云端 AI 一双 Mac 上的手</p>
+      <p class="footer-muted">Tianxin Wang · <a href="mailto:wangtianxin666@icloud.com">wangtianxin666@icloud.com</a><br>
+      站点：<a href="https://machands.pages.dev/">machands.pages.dev</a> · <a href="https://github.com/UnstoppableCurry/MacHands">GitHub</a></p>
     </div>
     <nav class="footer-links">
-      <a href="#pricing">Pricing</a>
-      <a href="#download">Download</a>
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="refund.html">Refunds</a>
+      <a href="https://github.com/UnstoppableCurry/MacHands">源码</a>
+      <a href="#open-source">开源</a>
+      <a href="terms.html">条款</a>
+      <a href="privacy.html">隐私</a>
+      <a href="refund.html">收费说明</a>
     </nav>
   </div>
 </footer>
